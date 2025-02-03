@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeevan Lakshya - LIC Protection cum Savings Plan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .policy-header {
+            background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+            color: white;
+            padding: 3rem 0;
+        }
+        .feature-card {
+            border: none;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            margin-bottom: 1.5rem;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        .feature-icon {
+            font-size: 2rem;
+            color: #4b6cb7;
+            margin-bottom: 1rem;
+        }
+        .benefit-list li {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+        .benefit-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+        }
+        .premium-calculator {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 1rem;
+        }
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background: #4b6cb7;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+        .timeline-item {
+            padding: 1rem;
+            position: relative;
+            width: 50%;
+            margin-bottom: 2rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #4b6cb7;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-right: 3rem;
+        }
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 3rem;
+        }
+        .timeline-item:nth-child(odd)::before {
+            right: -10px;
+        }
+        .timeline-item:nth-child(even)::before {
+            left: -10px;
+        }
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 31px;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 5rem;
+            }
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                left: 0;
+                padding-left: 5rem;
+            }
+            .timeline-item:nth-child(odd)::before,
+            .timeline-item:nth-child(even)::before {
+                left: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">LIC Advisor</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Insurance Plans</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#about">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Policy Header -->
+    <header class="policy-header">
+        <div class="container">
+            <h1 class="display-4">Jeevan Lakshya</h1>
+            <p class="lead">A Non-Linked, Participating, Limited Premium Payment, Life Insurance Plan</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container my-5">
+        <!-- Policy Overview -->
+        <section class="mb-5">
+            <h2 class="mb-4">Plan Overview</h2>
+            <p class="lead">Jeevan Lakshya is a unique protection and savings insurance plan that ensures your child's future even in your absence. It provides financial protection to the family and guarantees the child's education and other needs.</p>
+            
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-graduation-cap feature-icon"></i>
+                            <h5 class="card-title">Education Security</h5>
+                            <p class="card-text">Guaranteed education funding for your child</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-umbrella feature-icon"></i>
+                            <h5 class="card-title">Family Protection</h5>
+                            <p class="card-text">Regular income benefit for family in case of unfortunate event</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-piggy-bank feature-icon"></i>
+                            <h5 class="card-title">Savings Benefit</h5>
+                            <p class="card-text">Maturity benefit with bonus additions</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Policy Benefits Timeline -->
+        <section class="mb-5">
+            <h2 class="mb-4">Policy Benefits Timeline</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>During Policy Term</h5>
+                            <p>Regular premium payment and life cover continues</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>In Case of Death</h5>
+                            <p>Family receives immediate lump sum and regular monthly income</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Education Milestones</h5>
+                            <p>Guaranteed payouts at key education stages</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>At Maturity</h5>
+                            <p>Maturity sum assured plus bonuses paid</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Benefits -->
+        <section class="mb-5">
+            <h2 class="mb-4">Key Benefits</h2>
+            <ul class="benefit-list">
+                <li>Guaranteed monthly income to family in case of death</li>
+                <li>Premium waiver benefit on death of policyholder</li>
+                <li>Lump sum payment at maturity with bonuses</li>
+                <li>Additional protection through optional riders</li>
+                <li>Limited premium payment term options</li>
+                <li>Tax benefits under Section 80C & 10(10D)</li>
+            </ul>
+        </section>
+
+        <!-- Eligibility -->
+        <section class="mb-5">
+            <h2 class="mb-4">Eligibility Criteria</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>Minimum Entry Age</th>
+                            <td>18 years</td>
+                        </tr>
+                        <tr>
+                            <th>Maximum Entry Age</th>
+                            <td>50 years</td>
+                        </tr>
+                        <tr>
+                            <th>Policy Term</th>
+                            <td>15 to 25 years</td>
+                        </tr>
+                        <tr>
+                            <th>Premium Payment Term</th>
+                            <td>10 to 15 years</td>
+                        </tr>
+                        <tr>
+                            <th>Minimum Sum Assured</th>
+                            <td>₹1 Lakh</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Premium Calculator -->
+        <section class="premium-calculator mb-5">
+            <h2 class="mb-4">Calculate Premium</h2>
+            <form id="premiumCalcForm" class="needs-validation" novalidate>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="age" class="form-label">Age</label>
+                        <input type="number" class="form-control" id="age" required min="18" max="50">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="gender" class="form-label">Gender</label>
+                        <select class="form-select" id="gender" required>
+                            <option value="">Choose...</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="sumAssured" class="form-label">Sum Assured (₹)</label>
+                        <input type="number" class="form-control" id="sumAssured" required min="100000">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="term" class="form-label">Policy Term (Years)</label>
+                        <select class="form-select" id="term" required>
+                            <option value="">Choose...</option>
+                            <option value="15">15 years</option>
+                            <option value="20">20 years</option>
+                            <option value="25">25 years</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="ppt" class="form-label">Premium Payment Term</label>
+                        <select class="form-select" id="ppt" required>
+                            <option value="">Choose...</option>
+                            <option value="10">10 years</option>
+                            <option value="15">15 years</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary" type="submit">Calculate Premium</button>
+                    </div>
+                </div>
+            </form>
+            <div id="premiumResult" class="mt-4" style="display: none;">
+                <div class="alert alert-info">
+                    <h5 class="alert-heading">Estimated Premium Amount</h5>
+                    <p class="mb-0">Annual Premium: <span id="premiumAmount">₹0</span></p>
+                    <small class="text-muted">This is an indicative premium. The actual premium may vary based on underwriting.</small>
+                </div>
+            </div>
+        </section>
+
+        <!-- Maturity Benefit Example -->
+        <section class="mb-5">
+            <h2 class="mb-4">Maturity Benefit Illustration</h2>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Example Scenario</h5>
+                    <p>For a policy with:</p>
+                    <ul>
+                        <li>Sum Assured: ₹10,00,000</li>
+                        <li>Policy Term: 20 years</li>
+                        <li>Premium Payment Term: 15 years</li>
+                    </ul>
+                    <div class="alert alert-success">
+                        <h6>Maturity Benefits (Assuming 8% return)*</h6>
+                        <p>Basic Sum Assured: ₹10,00,000</p>
+                        <p>Estimated Bonus: ₹5,00,000</p>
+                        <p>Total Maturity Benefit: ₹15,00,000</p>
+                    </div>
+                    <small class="text-muted">* This is just an illustration. Actual bonus rates may vary based on company's performance.</small>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Contact Us</h5>
+                    <p>For more information about Jeevan Lakshya or any other policies</p>
+                    <p><i class="fas fa-phone"></i> Call us: 1800-XXX-XXXX</p>
+                    <p><i class="fas fa-envelope"></i> Email: support@licadvisor.com</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>Important Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light">Policy Brochure</a></li>
+                        <li><a href="#" class="text-light">Terms & Conditions</a></li>
+                        <li><a href="#" class="text-light">Claim Process</a></li>
+                        <li><a href="#" class="text-light">FAQs</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p class="mb-0">© 2025 LIC Advisor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Premium calculator logic
+        document.getElementById('premiumCalcForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const age = parseInt(document.getElementById('age').value);
+            const gender = document.getElementById('gender').value;
+            const sumAssured = parseInt(document.getElementById('sumAssured').value);
+            const term = parseInt(document.getElementById('term').value);
+            const ppt = parseInt(document.getElementById('ppt').value);
+            
+            // Basic premium calculation (this is a simplified example)
+            let basePremium = (sumAssured * 0.05) * (age / 25) * (term / 20) * (15 / ppt);
+            
+            // Adjustments
+            if (gender === 'female') {
+                basePremium *= 0.95; // 5% discount for females
+            }
+            
+            document.getElementById('premiumAmount').textContent = '₹' + Math.round(basePremium).toLocaleString('en-IN');
+            document.getElementById('premiumResult').style.display = 'block';
+        });
+    </script>
+</body>
+</html>

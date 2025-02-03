@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeevan Shanti - LIC Pension Plan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .policy-header {
+            background: linear-gradient(135deg, #4B79A1 0%, #283E51 100%);
+            color: white;
+            padding: 3rem 0;
+        }
+        .feature-card {
+            border: none;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            margin-bottom: 1.5rem;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        .feature-icon {
+            font-size: 2rem;
+            color: #4B79A1;
+            margin-bottom: 1rem;
+        }
+        .benefit-list li {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+        .benefit-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+        }
+        .premium-calculator {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 1rem;
+        }
+        .annuity-options {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+        .option-card {
+            border: 1px solid #e9ecef;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s;
+        }
+        .option-card:hover {
+            border-color: #4B79A1;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+        }
+        .comparison-table th {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">LIC Advisor</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Insurance Plans</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#about">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Policy Header -->
+    <header class="policy-header">
+        <div class="container">
+            <h1 class="display-4">Jeevan Shanti</h1>
+            <p class="lead">A Non-Linked, Non-Participating, Individual Immediate Annuity Plan</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container my-5">
+        <!-- Policy Overview -->
+        <section class="mb-5">
+            <h2 class="mb-4">Plan Overview</h2>
+            <p class="lead">Jeevan Shanti is designed to provide regular pension after retirement, ensuring financial independence and peace of mind in your golden years.</p>
+            
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-clock feature-icon"></i>
+                            <h5 class="card-title">Immediate Annuity</h5>
+                            <p class="card-text">Start receiving pension right away</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-hand-holding-usd feature-icon"></i>
+                            <h5 class="card-title">Guaranteed Income</h5>
+                            <p class="card-text">Fixed regular pension for life</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-users feature-icon"></i>
+                            <h5 class="card-title">Joint Life Option</h5>
+                            <p class="card-text">Protect your spouse too</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Annuity Options -->
+        <section class="annuity-options mb-5">
+            <h2 class="mb-4">Annuity Options</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="option-card">
+                        <h5><i class="fas fa-user text-primary me-2"></i>Single Life</h5>
+                        <ul>
+                            <li>Annuity for life</li>
+                            <li>Option for return of purchase price</li>
+                            <li>Higher annuity rates</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="option-card">
+                        <h5><i class="fas fa-users text-success me-2"></i>Joint Life</h5>
+                        <ul>
+                            <li>Covers both spouses</li>
+                            <li>100% annuity to survivor</li>
+                            <li>Return of purchase price option</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <div class="option-card">
+                        <h5><i class="fas fa-chart-line text-warning me-2"></i>Increasing Annuity</h5>
+                        <ul>
+                            <li>3% annual increase</li>
+                            <li>Protection against inflation</li>
+                            <li>Lower initial rates</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="option-card">
+                        <h5><i class="fas fa-shield-alt text-danger me-2"></i>Guaranteed Period</h5>
+                        <ul>
+                            <li>5, 10, 15, or 20 years certain</li>
+                            <li>Continued payment to nominee</li>
+                            <li>Life annuity thereafter</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Benefits -->
+        <section class="mb-5">
+            <h2 class="mb-4">Key Benefits</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-check-circle text-success me-2"></i>Guaranteed Income</h5>
+                            <ul>
+                                <li>Regular pension for life</li>
+                                <li>Choice of annuity frequency</li>
+                                <li>No market risk</li>
+                                <li>Inflation protection options</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-shield-alt text-primary me-2"></i>Death Benefit</h5>
+                            <ul>
+                                <li>Return of purchase price option</li>
+                                <li>Joint life protection</li>
+                                <li>Nominee benefits</li>
+                                <li>Guaranteed period options</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Eligibility -->
+        <section class="mb-5">
+            <h2 class="mb-4">Eligibility Criteria</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>Minimum Entry Age</th>
+                            <td>30 years</td>
+                        </tr>
+                        <tr>
+                            <th>Maximum Entry Age</th>
+                            <td>85 years</td>
+                        </tr>
+                        <tr>
+                            <th>Minimum Purchase Price</th>
+                            <td>₹1,00,000</td>
+                        </tr>
+                        <tr>
+                            <th>Maximum Purchase Price</th>
+                            <td>No Limit</td>
+                        </tr>
+                        <tr>
+                            <th>Annuity Modes</th>
+                            <td>Monthly, Quarterly, Half-yearly, Yearly</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Pension Calculator -->
+        <section class="premium-calculator mb-5">
+            <h2 class="mb-4">Calculate Pension</h2>
+            <form id="pensionCalcForm" class="needs-validation" novalidate>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="age" class="form-label">Age</label>
+                        <input type="number" class="form-control" id="age" required min="30" max="85">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="purchasePrice" class="form-label">Purchase Price (₹)</label>
+                        <input type="number" class="form-control" id="purchasePrice" required min="100000">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="annuityOption" class="form-label">Annuity Option</label>
+                        <select class="form-select" id="annuityOption" required>
+                            <option value="">Choose...</option>
+                            <option value="single">Single Life</option>
+                            <option value="joint">Joint Life</option>
+                            <option value="increasing">Increasing Annuity</option>
+                            <option value="guaranteed">Guaranteed Period</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="mode" class="form-label">Annuity Mode</label>
+                        <select class="form-select" id="mode" required>
+                            <option value="">Choose...</option>
+                            <option value="yearly">Yearly</option>
+                            <option value="half-yearly">Half-Yearly</option>
+                            <option value="quarterly">Quarterly</option>
+                            <option value="monthly">Monthly</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary" type="submit">Calculate Pension</button>
+                    </div>
+                </div>
+            </form>
+            <div id="pensionResult" class="mt-4" style="display: none;">
+                <div class="alert alert-info">
+                    <h5 class="alert-heading">Estimated Pension Amount</h5>
+                    <p class="mb-0">Pension Amount: <span id="pensionAmount">₹0</span></p>
+                    <p class="mb-0">Effective Annual Rate: <span id="effectiveRate">0%</span></p>
+                    <small class="text-muted">* The actual pension amount may vary based on the prevailing annuity rates at the time of purchase.</small>
+                </div>
+            </div>
+        </section>
+
+        <!-- Additional Features -->
+        <section class="mb-5">
+            <h2 class="mb-4">Additional Features</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-percentage text-primary me-2"></i>Tax Benefits</h5>
+                            <ul>
+                                <li>Purchase price: 80C*</li>
+                                <li>Pension: Taxable income</li>
+                                <li>Death benefit: Tax-free</li>
+                            </ul>
+                            <small>* Subject to conditions</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-file-alt text-success me-2"></i>Easy Documentation</h5>
+                            <ul>
+                                <li>Simple proposal form</li>
+                                <li>Age proof</li>
+                                <li>Identity proof</li>
+                                <li>Address proof</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-university text-warning me-2"></i>Payment Options</h5>
+                            <ul>
+                                <li>NEFT/RTGS</li>
+                                <li>Cheque/DD</li>
+                                <li>Online payment</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Contact Us</h5>
+                    <p>For more information about Jeevan Shanti</p>
+                    <p><i class="fas fa-phone"></i> Call us: 1800-XXX-XXXX</p>
+                    <p><i class="fas fa-envelope"></i> Email: support@licadvisor.com</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>Important Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light">Policy Brochure</a></li>
+                        <li><a href="#" class="text-light">Terms & Conditions</a></li>
+                        <li><a href="#" class="text-light">Claim Process</a></li>
+                        <li><a href="#" class="text-light">FAQs</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p class="mb-0">© 2025 LIC Advisor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Pension calculator logic
+        document.getElementById('pensionCalcForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const age = parseInt(document.getElementById('age').value);
+            const purchasePrice = parseInt(document.getElementById('purchasePrice').value);
+            const annuityOption = document.getElementById('annuityOption').value;
+            const mode = document.getElementById('mode').value;
+            
+            // Basic annuity rate calculation (simplified)
+            let annualRate = 0.07; // 7% base rate
+            
+            // Adjust rate based on age
+            if (age > 60) {
+                annualRate += 0.005 * Math.floor((age - 60) / 5); // 0.5% extra for every 5 years above 60
+            }
+            
+            // Adjust rate based on option
+            switch(annuityOption) {
+                case 'joint':
+                    annualRate *= 0.95; // 5% lower for joint life
+                    break;
+                case 'increasing':
+                    annualRate *= 0.85; // 15% lower for increasing annuity
+                    break;
+                case 'guaranteed':
+                    annualRate *= 0.90; // 10% lower for guaranteed period
+                    break;
+            }
+            
+            // Calculate annual pension
+            let annualPension = purchasePrice * annualRate;
+            
+            // Adjust for mode
+            const modeFactors = {
+                'yearly': 1,
+                'half-yearly': 0.49,
+                'quarterly': 0.24,
+                'monthly': 0.08
+            };
+            
+            let modalPension = annualPension * modeFactors[mode];
+            
+            document.getElementById('pensionAmount').textContent = '₹' + Math.round(modalPension).toLocaleString('en-IN');
+            document.getElementById('effectiveRate').textContent = (annualRate * 100).toFixed(2) + '%';
+            document.getElementById('pensionResult').style.display = 'block';
+        });
+    </script>
+</body>
+</html>

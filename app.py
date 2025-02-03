@@ -1,171 +1,208 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, request, jsonify
+from flask_mail import Mail, Message
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-from datetime import datetime
+from datetime import datetime, timedelta
+import bcrypt
+import jwt
+import secrets
 import os
+from dotenv import load_dotenv
+from flask_cors import CORS
+from routes import customers
+
+load_dotenv()
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your-secret-key-here'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///lic_advisor.db'
-app.config['UPLOAD_FOLDER'] = 'uploads'
+CORS(app)
 
+# Configuration
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'your-secret-key-here')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///lic_advisor.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# Email configuration
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = os.getenv('EMAIL_USER')
+app.config['MAIL_PASSWORD'] = os.getenv('EMAIL_PASSWORD')
+
+# Initialize extensions
 db = SQLAlchemy(app)
-login_manager = LoginManager(app)
-login_manager.login_view = 'login'
+mail = Mail(app)
 
 # Models
-class User(UserMixin, db.Model):
+class Admin(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
+    admin_id = db.Column(db.String(50), unique=True, nullable=False)
+    password_hash = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(120), nullable=False)
-    policies = db.relationship('Policy', backref='owner', lazy=True)
+    failed_attempts = db.Column(db.Integer, default=0)
+    locked_until = db.Column(db.DateTime, nullable=True)
+    reset_token = db.Column(db.String(100), nullable=True)
+    reset_token_expiry = db.Column(db.DateTime, nullable=True)
+    last_login = db.Column(db.DateTime, nullable=True)
 
-class Policy(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    policy_number = db.Column(db.String(50), unique=True, nullable=False)
-    policy_type = db.Column(db.String(50), nullable=False)
-    start_date = db.Column(db.DateTime, nullable=False)
-    premium_amount = db.Column(db.Float, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    documents = db.relationship('Document', backref='policy', lazy=True)
+# Register blueprints
+app.register_blueprint(customers)
 
-class Document(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    filename = db.Column(db.String(200), nullable=False)
-    upload_date = db.Column(db.DateTime, default=datetime.utcnow)
-    document_type = db.Column(db.String(50), nullable=False)
-    policy_id = db.Column(db.Integer, db.ForeignKey('policy.id'), nullable=False)
-
-class PolicyCategory(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    description = db.Column(db.Text)
-    policies = db.relationship('InsurancePolicy', backref='category', lazy=True)
-
-class InsurancePolicy(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(200), nullable=False)
-    policy_number = db.Column(db.String(50), unique=True)
-    category_id = db.Column(db.Integer, db.ForeignKey('policy_category.id'), nullable=False)
-    min_age = db.Column(db.Integer)
-    max_age = db.Column(db.Integer)
-    min_term = db.Column(db.Integer)
-    max_term = db.Column(db.Integer)
-    min_sum_assured = db.Column(db.Float)
-    description = db.Column(db.Text)
-    benefits = db.Column(db.Text)
-    tax_benefits = db.Column(db.Text)
-    premium_modes = db.Column(db.String(200))  # Yearly, Half-yearly, Quarterly, Monthly
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
-
-# Routes
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        user = User.query.filter_by(username=request.form['username']).first()
-        if user and user.password == request.form['password']:  # In production, use proper password hashing
-            login_user(user)
-            return redirect(url_for('dashboard'))
-        flash('Invalid username or password')
-    return render_template('login.html')
-
-@app.route('/dashboard')
-@login_required
-def dashboard():
-    return render_template('dashboard.html', policies=current_user.policies)
-
-@app.route('/policy/new', methods=['GET', 'POST'])
-@login_required
-def new_policy():
-    if request.method == 'POST':
-        policy = Policy(
-            policy_number=request.form['policy_number'],
-            policy_type=request.form['policy_type'],
-            start_date=datetime.strptime(request.form['start_date'], '%Y-%m-%d'),
-            premium_amount=float(request.form['premium_amount']),
-            user_id=current_user.id
+# Create tables
+with app.app_context():
+    db.create_all()
+    # Create default admin if not exists
+    if not Admin.query.filter_by(admin_id='admin').first():
+        default_admin = Admin(
+            admin_id='admin',
+            password_hash=bcrypt.hashpw('admin123'.encode('utf-8'), bcrypt.gensalt()),
+            email='admin@licadvisor.com'
         )
-        db.session.add(policy)
+        db.session.add(default_admin)
         db.session.commit()
-        return redirect(url_for('dashboard'))
-    return render_template('new_policy.html')
 
-@app.route('/policy/<int:policy_id>')
-@login_required
-def view_policy(policy_id):
-    policy = Policy.query.get_or_404(policy_id)
-    if policy.user_id != current_user.id:
-        flash('Unauthorized access')
-        return redirect(url_for('dashboard'))
-    return render_template('view_policy.html', policy=policy)
+def send_reset_email(email, reset_token):
+    msg = Message('Password Reset Request',
+                  sender='noreply@licadvisor.com',
+                  recipients=[email])
+    
+    reset_url = f"http://localhost:5000/reset-password?token={reset_token}"
+    
+    msg.body = f'''To reset your password, visit the following link:
+{reset_url}
 
-@app.route('/policies')
-def list_policies():
-    categories = PolicyCategory.query.all()
-    return render_template('policies.html', categories=categories)
+If you did not make this request then simply ignore this email and no changes will be made.
 
-@app.route('/policy/<int:policy_id>')
-def policy_details(policy_id):
-    policy = InsurancePolicy.query.get_or_404(policy_id)
-    return render_template('policy_details.html', policy=policy)
+This link will expire in 30 minutes.
+'''
+    mail.send(msg)
 
-# Initialize default policy categories and policies
-def init_policies():
-    with app.app_context():
-        # Create categories if they don't exist
-        categories = {
-            'Term Insurance': 'Pure protection plans that offer life cover for a specified term',
-            'Endowment Plans': 'Savings plus insurance plans that offer maturity benefits along with life cover',
-            'Money Back': 'Regular returns during policy term with life insurance coverage',
-            'Child Plans': 'Secure your child's future with education and marriage planning',
-            'Pension Plans': 'Retirement plans for regular income after retirement',
-            'ULIP': 'Unit Linked Insurance Plans combining investment and insurance',
-            'Special Plans': 'Special plans for women and differently-abled persons'
+@app.route('/api/admin/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    admin_id = data.get('adminId')
+    password = data.get('password')
+    
+    admin = Admin.query.filter_by(admin_id=admin_id).first()
+    
+    if not admin:
+        return jsonify({'error': 'Invalid credentials'}), 401
+    
+    # Check if account is locked
+    if admin.locked_until and admin.locked_until > datetime.utcnow():
+        remaining_time = (admin.locked_until - datetime.utcnow()).total_seconds() / 60
+        return jsonify({
+            'error': f'Account is locked. Try again in {int(remaining_time)} minutes.'
+        }), 403
+    
+    # Verify password
+    if not bcrypt.checkpw(password.encode('utf-8'), admin.password_hash):
+        admin.failed_attempts += 1
+        
+        # Lock account after 3 failed attempts
+        if admin.failed_attempts >= 3:
+            admin.locked_until = datetime.utcnow() + timedelta(minutes=30)
+            db.session.commit()
+            return jsonify({
+                'error': 'Account locked for 30 minutes due to multiple failed attempts.'
+            }), 403
+        
+        db.session.commit()
+        remaining_attempts = 3 - admin.failed_attempts
+        return jsonify({
+            'error': f'Invalid credentials. {remaining_attempts} attempts remaining.'
+        }), 401
+    
+    # Successful login
+    admin.failed_attempts = 0
+    admin.locked_until = None
+    admin.last_login = datetime.utcnow()
+    db.session.commit()
+    
+    # Generate token
+    token = jwt.encode(
+        {
+            'admin_id': admin.admin_id,
+            'exp': datetime.utcnow() + timedelta(hours=24)
+        },
+        app.config['SECRET_KEY'],
+        algorithm='HS256'
+    )
+    
+    return jsonify({
+        'token': token,
+        'admin': {
+            'id': admin.admin_id,
+            'email': admin.email,
+            'lastLogin': admin.last_login.isoformat() if admin.last_login else None
         }
-        
-        for name, desc in categories.items():
-            if not PolicyCategory.query.filter_by(name=name).first():
-                cat = PolicyCategory(name=name, description=desc)
-                db.session.add(cat)
-        
-        # Commit categories first
-        db.session.commit()
-        
-        # Add some sample policies
-        term_cat = PolicyCategory.query.filter_by(name='Term Insurance').first()
-        if term_cat and not InsurancePolicy.query.filter_by(name='LIC Tech Term').first():
-            policy = InsurancePolicy(
-                name='LIC Tech Term',
-                policy_number='T901',
-                category_id=term_cat.id,
-                min_age=18,
-                max_age=65,
-                min_term=10,
-                max_term=40,
-                min_sum_assured=50000,
-                description='Pure term insurance plan with high coverage at affordable premiums',
-                benefits='• High life cover at affordable premiums\n• Optional accidental death benefit\n• Tax benefits under section 80C\n• Multiple premium payment terms',
-                tax_benefits='Premium paid and benefits received are eligible for tax benefits under Section 80C and 10(10D)',
-                premium_modes='Yearly, Half-yearly, Quarterly, Monthly'
-            )
-            db.session.add(policy)
-        
-        # Add more policies here...
-        db.session.commit()
+    })
+
+@app.route('/api/admin/forgot-password', methods=['POST'])
+def forgot_password():
+    data = request.get_json()
+    admin_id = data.get('adminId')
+    email = data.get('email')
+    
+    admin = Admin.query.filter_by(admin_id=admin_id, email=email).first()
+    
+    if not admin:
+        return jsonify({'error': 'Invalid admin ID or email'}), 404
+    
+    # Generate reset token
+    reset_token = secrets.token_urlsafe(32)
+    admin.reset_token = reset_token
+    admin.reset_token_expiry = datetime.utcnow() + timedelta(minutes=30)
+    db.session.commit()
+    
+    # Send reset email
+    try:
+        send_reset_email(admin.email, reset_token)
+        return jsonify({'message': 'Password reset email sent successfully'})
+    except Exception as e:
+        print(f"Error sending email: {e}")
+        return jsonify({'error': 'Error sending reset email'}), 500
+
+@app.route('/api/admin/reset-password', methods=['POST'])
+def reset_password():
+    data = request.get_json()
+    token = data.get('token')
+    new_password = data.get('newPassword')
+    
+    admin = Admin.query.filter_by(reset_token=token).first()
+    
+    if not admin or not admin.reset_token_expiry or admin.reset_token_expiry < datetime.utcnow():
+        return jsonify({'error': 'Invalid or expired reset token'}), 400
+    
+    # Update password
+    admin.password_hash = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt())
+    admin.reset_token = None
+    admin.reset_token_expiry = None
+    admin.failed_attempts = 0
+    admin.locked_until = None
+    db.session.commit()
+    
+    return jsonify({'message': 'Password reset successful'})
+
+@app.route('/api/admin/change-password', methods=['POST'])
+def change_password():
+    data = request.get_json()
+    admin_id = data.get('adminId')
+    current_password = data.get('currentPassword')
+    new_password = data.get('newPassword')
+    
+    admin = Admin.query.filter_by(admin_id=admin_id).first()
+    
+    if not admin:
+        return jsonify({'error': 'Admin not found'}), 404
+    
+    # Verify current password
+    if not bcrypt.checkpw(current_password.encode('utf-8'), admin.password_hash):
+        return jsonify({'error': 'Current password is incorrect'}), 401
+    
+    # Update password
+    admin.password_hash = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt())
+    db.session.commit()
+    
+    return jsonify({'message': 'Password changed successfully'})
 
 if __name__ == '__main__':
-    if not os.path.exists('uploads'):
-        os.makedirs('uploads')
-    with app.app_context():
-        db.create_all()
-        init_policies()
     app.run(debug=True)
