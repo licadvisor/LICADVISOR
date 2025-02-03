@@ -1,0 +1,1844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Portal - LIC Advisor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        :root {
+            --sidebar-width: 280px;
+            --primary-color: #1a3c8a;
+            --secondary-color: #f8f9fa;
+            --accent-color: #ffd700;
+        }
+        
+        body {
+            min-height: 100vh;
+            background-color: var(--secondary-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--primary-color);
+            background-image: linear-gradient(to bottom, #1a3c8a, #2a5298);
+            min-height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 0;
+            color: white;
+            box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 2rem;
+            background: #f8f9fa;
+        }
+        
+        .portal-header {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .portal-header h4 {
+            color: var(--accent-color);
+            font-weight: 600;
+            margin: 0;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .customer-info {
+            padding: 1.5rem;
+            text-align: center;
+            background: rgba(255,255,255,0.05);
+            margin: 1rem 0;
+        }
+
+        .customer-info h6 {
+            color: white;
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .customer-info p {
+            color: rgba(255,255,255,0.8);
+            margin: 0.5rem 0 0;
+            font-size: 0.9rem;
+        }
+        
+        .nav-menu {
+            padding: 1rem;
+        }
+        
+        .nav-link {
+            color: rgba(255,255,255,0.8);
+            padding: 1rem 1.5rem;
+            margin: 0.5rem 0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: white;
+            background: rgba(255,255,255,0.1);
+            transform: translateX(5px);
+        }
+        
+        .nav-link i {
+            width: 24px;
+            margin-right: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .nav-divider {
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+            margin: 1rem 0;
+        }
+        
+        .dashboard-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .policy-card {
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .premium-due {
+            color: #dc3545;
+            font-weight: 600;
+            font-size: 1.1em;
+            text-emphasis: filled;
+        }
+        
+        .premium-paid {
+            color: #198754;
+            font-weight: 600;
+            font-size: 1.1em;
+            text-emphasis: filled;
+        }
+        
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .action-card {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-color: var(--primary-color);
+        }
+
+        .action-card i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .logout-container {
+            padding: 1.5rem;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.1);
+        }
+
+        .btn-logout {
+            background: transparent;
+            border: 2px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 0.8rem;
+            border-radius: 8px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .btn-logout:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .welcome-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+
+        .welcome-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: var(--primary-color);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card p {
+            margin: 0;
+            opacity: 0.8;
+        }
+
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        .policy-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+
+        .policy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .policy-header {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .policy-header h5 {
+            margin: 0;
+            color: #1e40af;
+            font-weight: 600;
+        }
+
+        .policy-details {
+            padding: 1.5rem;
+        }
+
+        .policy-details ul {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+
+        .policy-details ul li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .policy-details ul li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            padding: 0.35rem 0.65rem;
+            margin-left: 0.5rem;
+        }
+
+        /* Policy Status Styles */
+        .policy-category {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1.3em;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .policy-status {
+            font-weight: 600;
+            padding: 0.35em 0.65em;
+            border-radius: 4px;
+            display: inline-block;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.5px;
+        }
+
+        .policy-status.active {
+            background-color: rgba(25, 135, 84, 0.1);
+            color: #198754;
+        }
+
+        .policy-status.pending {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: #ffc107;
+        }
+
+        .policy-status.expired {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+        }
+
+        .important-text {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        /* Profile Styles */
+        .profile-card {
+            border: none;
+            box-shadow: 0 0 20px rgba(0,0,0,0.08);
+        }
+
+        .profile-avatar {
+            font-size: 5rem;
+            color: #2563eb;
+        }
+
+        .stat-box {
+            padding: 1rem;
+            border-radius: 8px;
+            background: #f8fafc;
+            margin: 0.5rem;
+        }
+
+        .stat-box i {
+            font-size: 1.5rem;
+        }
+
+        .stat-box h6 {
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-box p {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        .input-group-text {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+        }
+
+        .form-control:read-only {
+            background-color: #f8fafc;
+            opacity: 0.8;
+        }
+
+        .card-header {
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .badge {
+            padding: 0.5em 1em;
+        }
+
+        /* Support Section Styles */
+        #support .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+        }
+
+        #support .row {
+            display: flex;
+            justify-content: space-between;
+            gap: 1.5rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        #support .col-md-4 {
+            flex: 1;
+            min-width: 300px;
+            max-width: 380px;
+        }
+
+        .support-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            height: 100%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .support-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: var(--primary-color);
+        }
+
+        .support-card i {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, var(--primary-color), #4f46e5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            transition: all 0.4s ease;
+            display: inline-block;
+        }
+
+        .support-card:hover i {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .support-card h5 {
+            color: #1f2937;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .support-card p {
+            color: #4b5563;
+            margin-bottom: 1.8rem;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .support-card .btn {
+            padding: 0.875rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 200px;
+            border-radius: 12px;
+            background: var(--primary-color);
+            border: none;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .support-card .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+            background: #1e40af;
+        }
+
+        .support-card .btn i {
+            font-size: 1rem;
+            background: none;
+            -webkit-text-fill-color: white;
+            margin-bottom: 0;
+            margin-right: 0.5rem;
+        }
+
+        .support-card .btn:hover i {
+            transform: none;
+        }
+
+        @media (max-width: 1200px) {
+            #support .row {
+                justify-content: center;
+            }
+            #support .col-md-4 {
+                flex: 0 0 calc(50% - 1rem);
+                max-width: calc(50% - 1rem);
+            }
+        }
+
+        @media (max-width: 768px) {
+            #support .col-md-4 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+            #support .container {
+                padding: 1rem;
+            }
+        }
+
+        /* Support section welcome styles */
+        #support .welcome-section {
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #1a3c8a, #4f46e5, #2563eb);
+            color: white;
+            border-radius: 25px;
+            padding: 3rem 2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        #support .welcome-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2%M3Csvg%3E%3C/svg%3E") center/30% repeat;
+            animation: backgroundMove 30s linear infinite;
+        }
+
+        #support .welcome-section h3 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        #support .welcome-section p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="portal-header">
+            <h4>Customer Portal</h4>
+        </div>
+        
+        <div class="nav-menu">
+            <a href="#" class="nav-link active" onclick="showPage('dashboard')">
+                <i class="fas fa-home"></i> Dashboard
+            </a>
+            <a href="#" class="nav-link" onclick="showPage('policies')">
+                <i class="fas fa-file-contract"></i> Policies
+            </a>
+            <a href="#" class="nav-link" onclick="showPage('profile')">
+                <i class="fas fa-user"></i> Profile
+            </a>
+            <a href="#" class="nav-link" onclick="showPage('documents')">
+                <i class="fas fa-folder"></i> Documents
+            </a>
+            <a href="#" class="nav-link" onclick="showPage('support')">
+                <i class="fas fa-headset"></i> Support
+            </a>
+        </div>
+
+        <div class="logout-container">
+            <button class="btn-logout" onclick="handleLogout()">
+                <i class="fas fa-sign-out-alt me-2"></i> Logout
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="page-section active">
+            <div class="welcome-section">
+                <h2>Welcome, <span id="welcomeName">...</span></h2>
+                <p>Your insurance portfolio overview</p>
+                
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <h3 id="policyCount">0</h3>
+                        <p>Active Policies</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>-</h3>
+                        <p>Next Premium Due</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>-</h3>
+                        <p>Days to Due Date</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-card policy-card">
+                <h5>My Policies</h5>
+                <div id="noPoliciesMessage" class="text-center py-4">
+                    <i class="fas fa-file-alt fa-3x text-muted mb-3"></i>
+                    <h6>No Active Policies</h6>
+                    <p class="text-muted">You haven't purchased any policies yet.</p>
+                    <button class="btn btn-primary mt-2" onclick="showPage('policies')">
+                        <i class="fas fa-plus me-2"></i>Buy New Policy
+                    </button>
+                </div>
+            </div>
+
+            <!-- Add this section for policy requests -->
+            <div class="card dashboard-card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Request New Policy</h5>
+                    <button class="btn btn-primary" onclick="showNewPolicyRequestForm()">
+                        <i class="fas fa-plus-circle me-2"></i>Request New Policy
+                    </button>
+                </div>
+            </div>
+
+            <!-- Add this section to show user's requests -->
+            <div class="card dashboard-card">
+                <div class="card-body">
+                    <h5 class="card-title">My Policy Requests</h5>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Request ID</th>
+                                    <th>Policy Type</th>
+                                    <th>Request Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="myRequestsTable">
+                                <!-- Requests will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Section -->
+        <section id="profile" class="page-section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header bg-primary text-white">
+                                <h4 class="mb-0"><i class="fas fa-user-circle me-2"></i>My Profile</h4>
+                            </div>
+                            <div class="card-body">
+                                <form id="profileForm">
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Customer ID</label>
+                                            <input type="text" class="form-control" id="customerId" readonly>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Full Name</label>
+                                            <input type="text" class="form-control" id="customerName" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Email Address</label>
+                                            <input type="email" class="form-control" id="customerEmail" readonly>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Phone Number</label>
+                                            <input type="tel" class="form-control" id="customerPhone" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Address</label>
+                                        <textarea class="form-control" id="customerAddress" rows="2" readonly></textarea>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Date of Birth</label>
+                                            <input type="date" class="form-control" id="customerDob" readonly>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="password-section">
+                                        <h5 class="mb-3">Change Password</h5>
+                                        <div class="alert alert-info">
+                                            <i class="fas fa-info-circle me-2"></i>
+                                            Password must be changed within 24 hours of request.
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Current Password</label>
+                                            <input type="password" class="form-control" id="currentPassword">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">New Password</label>
+                                            <input type="password" class="form-control" id="newPassword">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Confirm New Password</label>
+                                            <input type="password" class="form-control" id="confirmPassword">
+                                        </div>
+                                        <button type="button" class="btn btn-primary" onclick="changePassword()">
+                                            <i class="fas fa-key me-2"></i>Update Password
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Policies Section -->
+        <section id="policies" class="page-section">
+            <div class="container">
+                <h3 class="mb-4">Available LIC Policies</h3>
+                <div class="row g-4">
+                    <!-- Term Plans Category -->
+                    <div class="col-12 mb-4">
+                        <h4 class="policy-category">Term Insurance Plans</h4>
+                        <div class="row g-4">
+                            <div class="col-md-4">
+                                <div class="policy-card">
+                                    <div class="policy-header">
+                                        <h5>Tech-Term Plan</h5>
+                                        <span class="badge bg-primary">Most Popular</span>
+                                    </div>
+                                    <div class="policy-details">
+                                        <p>High coverage at affordable premiums with tech-enabled claims.</p>
+                                        <ul>
+                                            <li>Coverage up to ₹2 Crore</li>
+                                            <li>Premium from ₹699/month</li>
+                                            <li>Quick digital claims</li>
+                                        </ul>
+                                        <button class="btn btn-primary w-100" onclick="handlePolicyPurchase('tech-term', 699)">Select Plan</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="policy-card">
+                                    <div class="policy-header">
+                                        <h5>Jeevan Amar</h5>
+                                    </div>
+                                    <div class="policy-details">
+                                        <p>Comprehensive protection with flexible premium payment options.</p>
+                                        <ul>
+                                            <li>Coverage up to ₹1 Crore</li>
+                                            <li>Premium from ₹599/month</li>
+                                            <li>Multiple premium payment modes</li>
+                                        </ul>
+                                        <button class="btn btn-primary w-100" onclick="handlePolicyPurchase('jeevan-amar', 599)">Select Plan</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Savings Plans Category -->
+                    <div class="col-12 mb-4">
+                        <h4 class="policy-category">Savings Plans</h4>
+                        <div class="row g-4">
+                            <div class="col-md-4">
+                                <div class="policy-card">
+                                    <div class="policy-header">
+                                        <h5>Jeevan Labh</h5>
+                                    </div>
+                                    <div class="policy-details">
+                                        <p>Endowment plan with guaranteed returns and bonuses.</p>
+                                        <ul>
+                                            <li>Guaranteed maturity benefit</li>
+                                            <li>Premium from ₹2,499/month</li>
+                                            <li>Loyalty additions</li>
+                                        </ul>
+                                        <button class="btn btn-primary w-100" onclick="handlePolicyPurchase('jeevan-labh', 2499)">Select Plan</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="policy-card">
+                                    <div class="policy-header">
+                                        <h5>Bima Jyoti</h5>
+                                        <span class="badge bg-success">New</span>
+                                    </div>
+                                    <div class="policy-details">
+                                        <p>Non-linked, non-participating endowment plan.</p>
+                                        <ul>
+                                            <li>Guaranteed returns</li>
+                                            <li>Premium from ₹1,999/month</li>
+                                            <li>Tax benefits under 80C</li>
+                                        </ul>
+                                        <button class="btn btn-primary w-100" onclick="handlePolicyPurchase('bima-jyoti', 1999)">Select Plan</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Child Plans Category -->
+                    <div class="col-12 mb-4">
+                        <h4 class="policy-category">Child Plans</h4>
+                        <div class="row g-4">
+                            <div class="col-md-4">
+                                <div class="policy-card">
+                                    <div class="policy-header">
+                                        <h5>New Children's Money Back</h5>
+                                    </div>
+                                    <div class="policy-details">
+                                        <p>Secure your child's future education needs.</p>
+                                        <ul>
+                                            <li>Regular money back benefits</li>
+                                            <li>Premium from ₹1,499/month</li>
+                                            <li>Waiver of premium benefit</li>
+                                        </ul>
+                                        <button class="btn btn-primary w-100" onclick="handlePolicyPurchase('child-money-back', 1499)">Select Plan</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pension Plans Category -->
+                    <div class="col-12">
+                        <h4 class="policy-category">Pension Plans</h4>
+                        <div class="row g-4">
+                            <div class="col-md-4">
+                                <div class="policy-card">
+                                    <div class="policy-header">
+                                        <h5>Jeevan Shanti</h5>
+                                    </div>
+                                    <div class="policy-details">
+                                        <p>Guaranteed pension plan for retirement.</p>
+                                        <ul>
+                                            <li>Immediate or deferred annuity</li>
+                                            <li>Premium from ₹3,999/month</li>
+                                            <li>Multiple annuity options</li>
+                                        </ul>
+                                        <button class="btn btn-primary w-100" onclick="handlePolicyPurchase('jeevan-shanti', 3999)">Select Plan</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Payments Section -->
+        <section id="payments" class="page-section">
+            <div class="welcome-section">
+                <h3>Premium Payments</h3>
+                <p>Manage your policy premium payments</p>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="section-header">
+                    <h3>Due Payments</h3>
+                    <p>Your upcoming and pending premium payments</p>
+                </div>
+
+                <div id="premiumPaymentsTable">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Policy Number</th>
+                                <th>Due Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="premiumTableBody">
+                            <!-- Premium data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="noPaymentsMessage" class="text-center py-4" style="display: none;">
+                    <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
+                    <h6>No Pending Payments</h6>
+                    <p class="text-muted">You're all caught up with your premium payments!</p>
+                </div>
+            </div>
+
+            <!-- Payment Modal -->
+            <div class="modal fade" id="paymentModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Make Payment</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-6 border-end">
+                                    <h6 class="mb-4">Pay by Card</h6>
+                                    <form id="paymentForm">
+                                        <div class="mb-3">
+                                            <label class="form-label">Policy Number</label>
+                                            <input type="text" class="form-control" id="paymentPolicyNumber" readonly>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Amount to Pay</label>
+                                            <input type="text" class="form-control" id="paymentAmount" readonly>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Card Number</label>
+                                            <input type="text" class="form-control" placeholder="1234 5678 9012 3456" required>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">Expiry Date</label>
+                                                <input type="text" class="form-control" placeholder="MM/YY" required>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">CVV</label>
+                                                <input type="text" class="form-control" placeholder="123" required>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 class="mb-4">Pay using QR Code</h6>
+                                    <div class="text-center">
+                                        <div id="qrCodeContainer" class="mb-3 d-flex justify-content-center">
+                                            <div id="qrcode" style="padding: 15px; background: white; border-radius: 8px;"></div>
+                                        </div>
+                                        <div id="timerContainer" class="mb-3">
+                                            <p class="text-muted small">QR Code expires in: <span id="timer" class="badge bg-warning">05:00</span></p>
+                                            <div class="progress" style="height: 4px;">
+                                                <div id="timerProgress" class="progress-bar bg-warning" style="width: 100%"></div>
+                                            </div>
+                                        </div>
+                                        <p class="text-muted small mb-2">Amount: <span id="qrAmount">₹0</span></p>
+                                        <p class="text-muted small">Scan with any UPI app to pay</p>
+                                        <div class="mt-3">
+                                            <p class="mb-1">Supported Apps:</p>
+                                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/UPI-Logo-vector.svg/200px-UPI-Logo-vector.svg.png" alt="UPI" style="height: 30px; margin: 5px;">
+                                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Paytm_Logo_%28standalone%29.svg/200px-Paytm_Logo_%28standalone%29.svg.png" alt="Paytm" style="height: 30px; margin: 5px;">
+                                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Google_Pay_Logo.svg/200px-Google_Pay_Logo.svg.png" alt="Google Pay" style="height: 30px; margin: 5px;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" onclick="processPayment()">Pay by Card</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Success Modal -->
+            <div class="modal fade" id="paymentSuccessModal" data-bs-backdrop="static" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header bg-success text-white">
+                            <h5 class="modal-title">Payment Successful!</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <i class="fas fa-check-circle text-success fa-4x mb-3"></i>
+                            <h4 class="mb-3">Thank you for your payment</h4>
+                            <p class="mb-2">Your payment has been processed successfully.</p>
+                            <p class="mb-2">Policy Number: <span id="successPolicyNumber"></span></p>
+                            <p class="mb-2">Amount Paid: ₹<span id="successAmount"></span></p>
+                            <p class="mb-4">Transaction ID: <span id="transactionId"></span></p>
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i>
+                                Your policy documents will be uploaded to your account within 24 hours.
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Failed Modal -->
+            <div class="modal fade" id="paymentFailedModal" data-bs-backdrop="static" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header bg-danger text-white">
+                            <h5 class="modal-title">Payment Failed</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <i class="fas fa-times-circle text-danger fa-4x mb-3"></i>
+                            <h4 class="mb-3">Payment Unsuccessful</h4>
+                            <p class="mb-2">We couldn't process your payment at this time.</p>
+                            <p class="mb-4">Error: <span id="failureReason"></span></p>
+                            <div class="alert alert-warning">
+                                <i class="fas fa-info-circle me-2"></i>
+                                If any amount was deducted, it will be automatically refunded within 5-7 business days.
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" onclick="handlePayNowClick(currentPolicyNumber, currentAmount)">Try Again</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Documents Section -->
+        <section id="documents" class="page-section">
+            <div class="welcome-section">
+                <h3>My Documents</h3>
+                <p>Access and download your policy documents</p>
+            </div>
+
+            <div id="noDocumentsMessage" class="text-center py-4">
+                <i class="fas fa-folder-open fa-3x text-muted mb-3"></i>
+                <h6>No Documents Available</h6>
+                <p class="text-muted">You don't have any policy documents yet.</p>
+            </div>
+        </section>
+
+        <!-- Support Section -->
+        <section id="support" class="page-section">
+            <div class="welcome-section">
+                <h3>Customer Support</h3>
+                <p>Our dedicated support team is available 24/7 to assist you with any queries or concerns</p>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="support-card">
+                            <i class="fas fa-phone-alt"></i>
+                            <h5>24/7 Helpline</h5>
+                            <p>Get instant support from our expert team anytime, anywhere</p>
+                            <a href="tel:1800-123-4567" class="btn btn-primary">
+                                <i class="fas fa-phone-alt me-2"></i>1800-123-4567
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="support-card">
+                            <i class="fas fa-envelope"></i>
+                            <h5>Email Support</h5>
+                            <p>Send us your queries and get expert assistance within 24 hours</p>
+                            <a href="mailto:support@licadvisor.com" class="btn btn-primary">
+                                <i class="fas fa-envelope me-2"></i>Send Email
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="support-card">
+                            <i class="fas fa-comments"></i>
+                            <h5>Live Chat</h5>
+                            <p>Connect instantly with our support team through live chat</p>
+                            <button class="btn btn-primary" onclick="showChatAlert()">
+                                <i class="fas fa-comments me-2"></i>Start Chat
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Agent Contact Modal -->
+        <div class="modal fade" id="agentContactModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title">Thank You for Your Interest!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <i class="fas fa-check-circle text-success fa-4x mb-3"></i>
+                        <h4 class="mb-3">Request Received</h4>
+                        <p class="mb-2">Our LIC agent will contact you within 24 hours to discuss the selected plan:</p>
+                        <p class="fw-bold mb-4" id="selectedPlanName">Plan Name</p>
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            You can expect a call from our agent to explain the policy details and help you with the purchase process.
+                        </div>
+                        <div class="alert alert-warning">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            Note: You can only have one pending policy request at a time.
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            // Initialize payment modal
+            let paymentModal = null;
+
+            document.addEventListener('DOMContentLoaded', function() {
+                // Initialize modal immediately
+                const modalElement = document.getElementById('paymentModal');
+                if (modalElement) {
+                    paymentModal = new bootstrap.Modal(modalElement, {
+                        backdrop: 'static',
+                        keyboard: false
+                    });
+                }
+
+                // Load customer data
+                const customerData = JSON.parse(localStorage.getItem('customerData'));
+                if (customerData) {
+                    const welcomeElement = document.getElementById('welcomeName');
+                    if (welcomeElement) {
+                        welcomeElement.textContent = customerData.name || 'Customer';
+                    }
+                    loadPremiumPayments();
+                }
+            });
+
+            let currentPolicyNumber = '';
+            let currentAmount = 0;
+            let paymentTimer;
+            let timerInterval;
+
+            function startQRCodeTimer() {
+                clearInterval(timerInterval);
+                let timeLeft = 300; // 5 minutes in seconds
+                const timerDisplay = document.getElementById('timer');
+                const timerProgress = document.getElementById('timerProgress');
+                
+                // Update timer immediately
+                updateTimer();
+                
+                // Update timer every second
+                timerInterval = setInterval(() => {
+                    timeLeft--;
+                    updateTimer();
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        handlePaymentFailure('QR Code expired. Please try again.');
+                    }
+                }, 1000);
+
+                function updateTimer() {
+                    const minutes = Math.floor(timeLeft / 60);
+                    const seconds = timeLeft % 60;
+                    timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                    
+                    // Update progress bar
+                    const progressPercent = (timeLeft / 300) * 100;
+                    timerProgress.style.width = `${progressPercent}%`;
+                    
+                    // Change color based on time left
+                    if (timeLeft <= 60) { // Last minute
+                        timerDisplay.className = 'badge bg-danger';
+                        timerProgress.className = 'progress-bar bg-danger';
+                    }
+                }
+
+                // Store timer reference for cleanup
+                paymentTimer = timerInterval;
+            }
+
+            function handlePayNowClick(policyNumber, amount) {
+                currentPolicyNumber = policyNumber;
+                currentAmount = amount;
+                
+                // Clear any existing timers
+                if (paymentTimer) {
+                    clearInterval(paymentTimer);
+                }
+
+                // Set payment details first
+                const policyNumberInput = document.getElementById('paymentPolicyNumber');
+                const amountInput = document.getElementById('paymentAmount');
+                const form = document.getElementById('paymentForm');
+
+                if (policyNumberInput && amountInput) {
+                    policyNumberInput.value = policyNumber;
+                    amountInput.value = `₹${amount}`;
+                }
+
+                if (form) {
+                    form.reset();
+                }
+
+                // Generate QR code
+                try {
+                    generateQRCode(policyNumber, amount);
+                    startQRCodeTimer(); // Start the timer after QR code is generated
+                } catch (error) {
+                    console.error('Error generating QR code:', error);
+                }
+
+                // Show modal
+                try {
+                    if (!paymentModal) {
+                        const modalElement = document.getElementById('paymentModal');
+                        paymentModal = new bootstrap.Modal(modalElement, {
+                            backdrop: 'static',
+                            keyboard: false
+                        });
+                    }
+                    paymentModal.show();
+                } catch (error) {
+                    console.error('Modal error:', error);
+                    showAlert('danger', 'Error opening payment form. Please refresh the page and try again.');
+                }
+            }
+
+            function generateQRCode(policyNumber, amount) {
+                try {
+                    // Get the container
+                    const qrContainer = document.getElementById('qrcode');
+                    if (!qrContainer) {
+                        throw new Error('QR code container not found');
+                    }
+
+                    // Clear previous QR code
+                    qrContainer.innerHTML = '';
+
+                    // Create UPI payment string
+                    const upiString = `upi://pay?pa=9733511803@ybl&pn=LIC_ADVISOR&tn=Policy_${policyNumber}&am=${amount}&cu=INR`;
+
+                    // Create new QR code
+                    new QRCode(qrContainer, {
+                        text: upiString,
+                        width: 180,
+                        height: 180,
+                        colorDark: "#000000",
+                        colorLight: "#ffffff",
+                        correctLevel: QRCode.CorrectLevel.H
+                    });
+
+                    // Update amount display
+                    const amountDisplay = document.getElementById('qrAmount');
+                    if (amountDisplay) {
+                        amountDisplay.textContent = `₹${amount}`;
+                    }
+
+                    console.log('QR Code generated:', upiString);
+                } catch (error) {
+                    console.error('QR Code generation error:', error);
+                    const qrContainer = document.getElementById('qrcode');
+                    if (qrContainer) {
+                        qrContainer.innerHTML = '<p class="text-danger">Error generating QR code. Please try again.</p>';
+                    }
+                }
+            }
+
+            function showAlert(type, message) {
+                const alertDiv = document.createElement('div');
+                alertDiv.className = `alert alert-${type} alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3`;
+                alertDiv.style.zIndex = '9999';
+                alertDiv.innerHTML = `
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                `;
+                document.body.appendChild(alertDiv);
+                setTimeout(() => alertDiv.remove(), 3000);
+            }
+
+            // Show/Hide pages
+            function showPage(pageId) {
+                document.querySelectorAll('.page-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                document.getElementById(pageId).classList.add('active');
+                document.querySelector(`.nav-link[onclick="showPage('${pageId}')"]`).classList.add('active');
+            }
+
+            // Handle logout
+            function handleLogout() {
+                localStorage.removeItem('customerData');
+                window.location.href = '../login/customer-login.html';
+            }
+
+            // Load customer profile data
+            function loadCustomerProfile() {
+                const customerEmail = localStorage.getItem('currentCustomerEmail');
+                const customers = JSON.parse(localStorage.getItem('customers') || '[]');
+                const customerData = customers.find(c => c.email === customerEmail);
+
+                if (!customerData) {
+                    console.error('Customer data not found');
+                    return;
+                }
+
+                // Store full customer data
+                localStorage.setItem('currentCustomer', JSON.stringify(customerData));
+
+                // Update profile overview
+                document.getElementById('profileName').textContent = customerData.name;
+                document.getElementById('profileEmail').textContent = customerData.email;
+                document.getElementById('profileCustomerId').textContent = customerData.id || 'CUST' + Date.now();
+                document.getElementById('profileJoinDate').textContent = new Date(customerData.createdAt || Date.now())
+                    .toLocaleDateString('en-IN', { 
+                        year: 'numeric', 
+                        month: 'short', 
+                        day: 'numeric' 
+                    });
+
+                // Update form fields
+                document.getElementById('customerName').value = customerData.name || '';
+                document.getElementById('customerEmail').value = customerData.email || '';
+                document.getElementById('customerPhone').value = customerData.phone || '';
+                document.getElementById('customerAddress').value = customerData.address || '';
+                document.getElementById('customerDob').value = customerData.dob || '';
+
+                // Update header name
+                const headerNameElement = document.getElementById('headerCustomerName');
+                if (headerNameElement) {
+                    headerNameElement.textContent = customerData.name;
+                }
+
+                // Load policy requests
+                loadPolicyRequests();
+            }
+
+            // Load policy requests
+            function loadPolicyRequests() {
+                const currentCustomer = JSON.parse(localStorage.getItem('currentCustomer'));
+                if (!currentCustomer) return;
+
+                const policyRequests = JSON.parse(localStorage.getItem('policyRequests') || '[]')
+                    .filter(req => req.customerId === currentCustomer.id);
+
+                const tableBody = document.getElementById('policyRequestsTable');
+                tableBody.innerHTML = '';
+
+                policyRequests.forEach(request => {
+                    const row = document.createElement('tr');
+                    const requestDate = new Date(request.requestDate).toLocaleDateString('en-IN', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                    });
+
+                    row.innerHTML = `
+                        <td>${requestDate}</td>
+                        <td>${request.policyType}</td>
+                        <td>
+                            <span class="badge bg-${getStatusBadgeColor(request.status)}">
+                                ${getStatusText(request.status)}
+                            </span>
+                        </td>
+                        <td>
+                            ${request.status === 'approved' ? 
+                                `<button class="btn btn-sm btn-success" onclick="handlePremiumPayment('${request.policyId}')">
+                                    Pay Premium
+                                </button>` : 
+                                '<span class="text-muted">Awaiting Response</span>'
+                            }
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
+
+            // Get status badge color
+            function getStatusBadgeColor(status) {
+                switch(status) {
+                    case 'pending': return 'warning';
+                    case 'approved': return 'success';
+                    case 'rejected': return 'danger';
+                    default: return 'secondary';
+                }
+            }
+
+            // Get status text
+            function getStatusText(status) {
+                switch(status) {
+                    case 'pending': return 'Pending Agent Review';
+                    case 'approved': return 'Approved';
+                    case 'rejected': return 'Rejected';
+                    default: return 'Unknown';
+                }
+            }
+
+            // Handle premium payment
+            function handlePremiumPayment(policyId) {
+                // This function will be implemented when the agent approves the policy
+                showAlert('info', 'Premium payment will be enabled after agent approval');
+            }
+
+            // Update password
+            function updatePassword(event) {
+                event.preventDefault();
+
+                const currentPassword = document.getElementById('currentPassword').value;
+                const newPassword = document.getElementById('newPassword').value;
+
+                // Get customer data
+                const loggedInEmail = localStorage.getItem('currentCustomerEmail');
+                const customers = JSON.parse(localStorage.getItem('customers')) || [];
+                const customerIndex = customers.findIndex(customer => customer.email === loggedInEmail);
+
+                if (customerIndex === -1) {
+                    showAlert('danger', 'Customer not found');
+                    return;
+                }
+
+                // Verify current password
+                if (currentPassword !== customers[customerIndex].password) {
+                    showAlert('danger', 'Current password is incorrect');
+                    return;
+                }
+
+                // Set password change timestamp
+                const changeTime = new Date().getTime();
+                
+                // Update password in customer data
+                customers[customerIndex].password = newPassword;
+                customers[customerIndex].passwordChangeTime = changeTime;
+                
+                // Update in localStorage
+                localStorage.setItem('customers', JSON.stringify(customers));
+
+                // Update in customer data
+                const customerData = JSON.parse(localStorage.getItem('customerData'));
+                customerData.password = newPassword;
+                customerData.passwordChangeTime = changeTime;
+                localStorage.setItem('customerData', JSON.stringify(customerData));
+
+                // Clear password fields
+                document.getElementById('currentPassword').value = '';
+                document.getElementById('newPassword').value = '';
+
+                showAlert('success', 'Password updated successfully. Please note that this change will expire in 24 hours.');
+            }
+
+            // Check password change expiry
+            function checkPasswordChangeExpiry() {
+                const customerData = JSON.parse(localStorage.getItem('customerData'));
+                if (!customerData || !customerData.passwordChangeTime) return;
+
+                const now = new Date().getTime();
+                const changeTime = customerData.passwordChangeTime;
+                const hoursSinceChange = (now - changeTime) / (1000 * 60 * 60);
+
+                if (hoursSinceChange > 24) {
+                    // Reset password to previous one
+                    const customers = JSON.parse(localStorage.getItem('customers') || '[]');
+                    const originalCustomer = customers.find(c => c.id === customerData.id);
+                    if (originalCustomer) {
+                        customerData.password = originalCustomer.password;
+                        delete customerData.passwordChangeTime;
+                        localStorage.setItem('customerData', JSON.stringify(customerData));
+                        showAlert('warning', 'Your password change has expired and been reverted to the previous password.');
+                    }
+                }
+            }
+
+            // Add to page load events
+            document.addEventListener('DOMContentLoaded', function() {
+                loadCustomerProfile();
+                checkPasswordChangeExpiry();
+            });
+
+            // Add chat alert function
+            function showChatAlert() {
+                Swal.fire({
+                    title: '<i class="fas fa-tools"></i> Under Construction',
+                    html: `
+                        <div class="text-center">
+                            <div class="mb-3">
+                                <i class="fas fa-comments fa-3x text-primary mb-3"></i>
+                            </div>
+                            <h4 class="mb-3">Live Chat Coming Soon!</h4>
+                            <p class="mb-4">We're working hard to bring you real-time chat support. This feature will be available shortly.</p>
+                            <div class="alert alert-info" role="alert">
+                                <i class="fas fa-info-circle me-2"></i>
+                                Meanwhile, please use our phone or email support for immediate assistance.
+                            </div>
+                        </div>
+                    `,
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown animate__faster'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp animate__faster'
+                    },
+                    confirmButtonText: '<i class="fas fa-check-circle me-2"></i>Got it!',
+                    confirmButtonColor: '#1a3c8a',
+                    showCloseButton: true,
+                    customClass: {
+                        container: 'custom-swal-container',
+                        popup: 'custom-swal-popup',
+                        title: 'custom-swal-title',
+                        htmlContainer: 'custom-swal-html',
+                        confirmButton: 'custom-swal-confirm-button'
+                    }
+                });
+            }
+
+            // Add custom styles for SweetAlert
+            const style = document.createElement('style');
+            style.textContent = `
+                .custom-swal-popup {
+                    padding: 2rem;
+                    border-radius: 20px;
+                    background: rgba(255, 255, 255, 0.98);
+                }
+                .custom-swal-title {
+                    color: #1f2937;
+                    font-size: 1.8rem !important;
+                    font-weight: 700 !important;
+                    padding: 1rem 0;
+                }
+                .custom-swal-html {
+                    font-size: 1.1rem;
+                    color: #4b5563;
+                }
+                .custom-swal-confirm-button {
+                    padding: 0.8rem 2rem !important;
+                    font-size: 1.1rem !important;
+                    font-weight: 600 !important;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                }
+                .swal2-close:focus {
+                    box-shadow: none;
+                }
+            `;
+            document.head.appendChild(style);
+
+            // Function to show new policy request form
+            function showNewPolicyRequestForm() {
+                Swal.fire({
+                    title: 'Request New Policy',
+                    html: `
+                        <form id="policyRequestForm">
+                            <div class="mb-3">
+                                <label class="form-label">Policy Type</label>
+                                <select id="policyType" class="form-control" required>
+                                    <option value="">Select Policy Type</option>
+                                    <option value="Term Life">Term Life Insurance</option>
+                                    <option value="ULIP">ULIP</option>
+                                    <option value="Endowment">Endowment Plan</option>
+                                    <option value="Money Back">Money Back Policy</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Coverage Amount</label>
+                                <input type="text" id="coverageAmount" class="form-control" placeholder="e.g., ₹10,00,000" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Policy Term (Years)</label>
+                                <input type="number" id="policyTerm" class="form-control" min="5" max="30" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Additional Notes</label>
+                                <textarea id="requestNotes" class="form-control" rows="2"></textarea>
+                            </div>
+                        </form>
+                    `,
+                    showCancelButton: true,
+                    confirmButtonText: 'Submit Request',
+                    cancelButtonText: 'Cancel',
+                    confirmButtonColor: '#28a745',
+                    focusConfirm: false,
+                    preConfirm: () => {
+                        const form = document.getElementById('policyRequestForm');
+                        if (!form.checkValidity()) {
+                            form.reportValidity();
+                            return false;
+                        }
+                        return {
+                            policyType: document.getElementById('policyType').value,
+                            coverageAmount: document.getElementById('coverageAmount').value,
+                            policyTerm: document.getElementById('policyTerm').value,
+                            notes: document.getElementById('requestNotes').value
+                        };
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        submitPolicyRequest(result.value);
+                    }
+                });
+            }
+
+            // Function to submit policy request
+            function submitPolicyRequest(requestData) {
+                const user = JSON.parse(localStorage.getItem('currentUser'));
+                if (!user) {
+                    Swal.fire('Error', 'Please log in to submit a request', 'error');
+                    return;
+                }
+
+                const requests = JSON.parse(localStorage.getItem('policyRequests')) || [];
+                const newRequest = {
+                    id: `REQ${String(requests.length + 1).padStart(3, '0')}`,
+                    customerName: user.name,
+                    customerId: user.id,
+                    requestDate: new Date().toISOString(),
+                    status: 'pending',
+                    details: {
+                        coverageAmount: requestData.coverageAmount,
+                        term: `${requestData.policyTerm} years`,
+                        notes: requestData.notes
+                    },
+                    ...requestData
+                };
+
+                requests.push(newRequest);
+                localStorage.setItem('policyRequests', JSON.stringify(requests));
+                
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Request Submitted!',
+                    text: 'Your policy request has been submitted successfully.',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+
+                loadMyRequests();
+            }
+
+            // Function to load user's requests
+            function loadMyRequests() {
+                const user = JSON.parse(localStorage.getItem('currentUser'));
+                if (!user) return;
+
+                const requests = JSON.parse(localStorage.getItem('policyRequests')) || [];
+                const myRequests = requests.filter(r => r.customerId === user.id);
+                const tableBody = document.getElementById('myRequestsTable');
+                tableBody.innerHTML = '';
+
+                myRequests.forEach(request => {
+                    const statusClass = {
+                        'pending': 'bg-warning',
+                        'approved': 'bg-success',
+                        'rejected': 'bg-danger'
+                    }[request.status] || 'bg-secondary';
+
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${request.id}</td>
+                        <td>${request.policyType}</td>
+                        <td>${new Date(request.requestDate).toLocaleDateString()}</td>
+                        <td><span class="badge ${statusClass}">${request.status}</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-primary" onclick="viewRequestDetails('${request.id}')">
+                                <i class="fas fa-eye"></i> View
+                            </button>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
+
+            // Function to view request details
+            function viewRequestDetails(requestId) {
+                const requests = JSON.parse(localStorage.getItem('policyRequests')) || [];
+                const request = requests.find(r => r.id === requestId);
+
+                if (!request) {
+                    Swal.fire('Error', 'Request not found!', 'error');
+                    return;
+                }
+
+                Swal.fire({
+                    title: 'Request Details',
+                    html: `
+                        <div class="card">
+                            <div class="card-body">
+                                <ul class="list-unstyled">
+                                    <li><strong>Request ID:</strong> ${request.id}</li>
+                                    <li><strong>Policy Type:</strong> ${request.policyType}</li>
+                                    <li><strong>Coverage Amount:</strong> ${request.details.coverageAmount}</li>
+                                    <li><strong>Term:</strong> ${request.details.term}</li>
+                                    <li><strong>Status:</strong> <span class="badge ${request.status === 'approved' ? 'bg-success' : request.status === 'rejected' ? 'bg-danger' : 'bg-warning'}">${request.status}</span></li>
+                                    <li><strong>Request Date:</strong> ${new Date(request.requestDate).toLocaleDateString()}</li>
+                                    ${request.actionDate ? `<li><strong>Action Date:</strong> ${new Date(request.actionDate).toLocaleDateString()}</li>` : ''}
+                                    ${request.actionNote ? `<li><strong>Admin Note:</strong> ${request.actionNote}</li>` : ''}
+                                </ul>
+                            </div>
+                        </div>
+                    `,
+                    confirmButtonText: 'Close',
+                    confirmButtonColor: '#6c757d'
+                });
+            }
+
+            // Function to handle policy selection
+            function handlePolicyPurchase(policyType, amount) {
+                const customerData = JSON.parse(localStorage.getItem('customerData')) || {};
+                
+                // Validate customer data
+                if (!customerData.id || !customerData.name || !customerData.email) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Please complete your profile before requesting a policy.',
+                        confirmButtonColor: '#1a3c8a'
+                    });
+                    return;
+                }
+
+                // Create request data
+                const requestData = {
+                    id: 'REQ' + Date.now(),
+                    customerId: customerData.id,
+                    customerName: customerData.name,
+                    customerEmail: customerData.email,
+                    policyType: policyType,
+                    amount: amount,
+                    status: 'pending',
+                    requestDate: new Date().toISOString(),
+                    notes: ''
+                };
+
+                // Get existing requests or initialize empty array
+                let policyRequests = JSON.parse(localStorage.getItem('policyRequests')) || [];
+                
+                // Add new request
+                policyRequests.push(requestData);
+                
+                // Save to localStorage
+                try {
+                    localStorage.setItem('policyRequests', JSON.stringify(policyRequests));
+                    
+                    // Show success message
+                    Swal.fire({
+                        title: 'Request Submitted!',
+                        text: 'Your policy request has been submitted successfully. Our team will review it shortly.',
+                        icon: 'success',
+                        confirmButtonColor: '#1a3c8a'
+                    });
+
+                    // Update requests display
+                    loadMyRequests();
+                } catch (error) {
+                    console.error('Error saving request:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'There was an error submitting your request. Please try again.',
+                        confirmButtonColor: '#1a3c8a'
+                    });
+                }
+            }
+
+            // Function to load customer's requests
+            function loadMyRequests() {
+                const customerData = JSON.parse(localStorage.getItem('customerData')) || {};
+                const policyRequests = JSON.parse(localStorage.getItem('policyRequests')) || [];
+                
+                // Filter requests for current customer
+                const myRequests = policyRequests.filter(req => req.customerId === customerData.id);
+                
+                const requestsList = document.getElementById('myRequestsList');
+                if (!requestsList) return;
+
+                if (myRequests.length === 0) {
+                    requestsList.innerHTML = `
+                        <div class="col-12">
+                            <div class="alert alert-info">
+                                You haven't made any policy requests yet.
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+
+                requestsList.innerHTML = myRequests.map(request => `
+                    <div class="col-md-6">
+                        <div class="card dashboard-card mb-3">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="card-title">${request.policyType}</h5>
+                                    <span class="badge ${getStatusBadgeClass(request.status)}">${request.status.toUpperCase()}</span>
+                                </div>
+                                <p class="card-text">
+                                    <small class="text-muted">Requested on: ${new Date(request.requestDate).toLocaleDateString()}</small>
+                                </p>
+                                <p class="card-text">Monthly Premium: ₹${request.amount}</p>
+                                ${request.notes ? `<p class="card-text">Notes: ${request.notes}</p>` : ''}
+                                <button class="btn btn-sm btn-outline-primary" onclick="viewRequestDetails('${request.id}')">
+                                    <i class="fas fa-eye me-2"></i>View Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            function viewRequestDetails(requestId) {
+                const policyRequests = JSON.parse(localStorage.getItem('policyRequests')) || [];
+                const request = policyRequests.find(r => r.id === requestId);
+                
+                if (!request) return;
+
+                Swal.fire({
+                    title: 'Request Details',
+                    html: `
+                        <div class="text-start">
+                            <p><strong>Request ID:</strong> ${request.id}</p>
+                            <p><strong>Policy Type:</strong> ${request.policyType}</p>
+                            <p><strong>Monthly Premium:</strong> ₹${request.amount}</p>
+                            <p><strong>Status:</strong> ${request.status.toUpperCase()}</p>
+                            <p><strong>Request Date:</strong> ${new Date(request.requestDate).toLocaleString()}</p>
+                            ${request.notes ? `<p><strong>Notes:</strong> ${request.notes}</p>` : ''}
+                            ${request.actionDate ? `<p><strong>Action Date:</strong> ${new Date(request.actionDate).toLocaleString()}</p>` : ''}
+                        </div>
+                    `,
+                    confirmButtonColor: '#1a3c8a'
+                });
+            }
+
+            function getStatusBadgeClass(status) {
+                return {
+                    'pending': 'bg-warning',
+                    'approved': 'bg-success',
+                    'declined': 'bg-danger'
+                }[status] || 'bg-secondary';
+            }
+        </script>
+    </body>
+</html>

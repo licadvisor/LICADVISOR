@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIC Advisor - {% block title %}Home{% endblock %}</title>
+    <style>
+        /* Critical styles that must load first */
+        :root {
+            --primary-color: #1a3c61;
+            --white: #ffffff;
+        }
+        
+        body {
+            background-color: white;
+        }
+        
+        .navbar {
+            background-color: white !important;
+            border: none !important;
+        }
+        
+        .navbar-collapse {
+            background-color: white !important;
+        }
+        
+        .dropdown-menu {
+            background-color: white !important;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('index') }}">
+                <img src="https://lifeinsuranceofindia.in/wp-content/uploads/2023/08/cropped-LIC-Logo-PNG-HD-Quality.png" alt="LIC Logo" class="logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                    </li>
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Insurance Plans
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ url_for('list_policies') }}"><i class="fas fa-th-list"></i> All Plans</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('list_policies') }}#term"><i class="fas fa-shield-alt"></i> Term Insurance</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('list_policies') }}#health"><i class="fas fa-heartbeat"></i> Health Insurance</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('list_policies') }}#investment"><i class="fas fa-chart-line"></i> Investment Plans</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('list_policies') }}#child"><i class="fas fa-child"></i> Child Plans</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('list_policies') }}#pension"><i class="fas fa-umbrella"></i> Pension Plans</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('list_policies') }}#special"><i class="fas fa-star"></i> Special Plans</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+                <div class="nav-right-section">
+                    {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('my_policies') }}" class="nav-btn policy-btn">
+                            <i class="fas fa-file-contract"></i> My Policies
+                        </a>
+                        <a href="{{ url_for('premium_payment') }}" class="nav-btn premium-btn">
+                            <i class="fas fa-credit-card"></i> Premium
+                        </a>
+                        <div class="nav-cart">
+                            <a href="{{ url_for('cart') }}" class="cart-link">
+                                <i class="fas fa-shopping-cart"></i> Cart
+                                <div class="badge-container">
+                                    <span class="cart-badge">{{ cart_count }}</span>
+                                </div>
+                            </a>
+                        </div>
+                        <a href="{{ url_for('logout') }}" class="nav-btn">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    {% else %}
+                        <a href="{{ url_for('login') }}" class="nav-btn">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </a>
+                    {% endif %}
+                    <a href="{{ url_for('buy_online') }}" class="nav-btn">
+                        <i class="fas fa-shopping-bag"></i> Buy Online
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

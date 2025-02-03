@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeevan Shiromani - LIC Premium Insurance Plan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .policy-header {
+            background: linear-gradient(135deg, #8E2DE2 0%, #4A00E0 100%);
+            color: white;
+            padding: 3rem 0;
+        }
+        .feature-card {
+            border: none;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            margin-bottom: 1.5rem;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        .feature-icon {
+            font-size: 2rem;
+            color: #8E2DE2;
+            margin-bottom: 1rem;
+        }
+        .premium-calculator {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 1rem;
+        }
+        .benefit-box {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.05);
+            margin-bottom: 1rem;
+            border-left: 4px solid #8E2DE2;
+        }
+        .premium-tag {
+            background: linear-gradient(135deg, #8E2DE2 0%, #4A00E0 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        .maturity-timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+        .timeline-item {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #8E2DE2;
+        }
+        .highlight-section {
+            background: rgba(142, 45, 226, 0.1);
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">LIC Advisor</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Insurance Plans</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#about">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Policy Header -->
+    <header class="policy-header">
+        <div class="container">
+            <h1 class="display-4">Jeevan Shiromani</h1>
+            <p class="lead">A Premium High-Value Insurance Plan for High Net Worth Individuals</p>
+            <div class="premium-tag">
+                <i class="fas fa-crown me-2"></i>Premium Plan
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container my-5">
+        <!-- Highlight Section -->
+        <section class="highlight-section text-center mb-5">
+            <i class="fas fa-gem feature-icon"></i>
+            <h4 class="mb-3">Exclusive Benefits for High Net Worth Individuals</h4>
+            <p class="lead mb-0">Minimum Sum Assured of ₹1 Crore with enhanced coverage and premium benefits</p>
+        </section>
+
+        <!-- Policy Overview -->
+        <section class="mb-5">
+            <h2 class="mb-4">Plan Overview</h2>
+            <p class="lead">Jeevan Shiromani is a premium life insurance plan designed specifically for high net worth individuals, offering enhanced coverage and exclusive benefits.</p>
+            
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-shield-alt feature-icon"></i>
+                            <h5 class="card-title">High Coverage</h5>
+                            <p class="card-text">Minimum Sum Assured ₹1 Crore</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-chart-line feature-icon"></i>
+                            <h5 class="card-title">Wealth Creation</h5>
+                            <p class="card-text">Enhanced maturity benefits</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-gift feature-icon"></i>
+                            <h5 class="card-title">Special Benefits</h5>
+                            <p class="card-text">Exclusive rewards & bonuses</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Benefits -->
+        <section class="mb-5">
+            <h2 class="mb-4">Premium Benefits</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="benefit-box">
+                        <h5><i class="fas fa-heart text-danger me-2"></i>Death Benefit</h5>
+                        <ul>
+                            <li>Sum Assured on Death plus:
+                                <ul>
+                                    <li>Guaranteed Additions</li>
+                                    <li>Loyalty Additions</li>
+                                    <li>Terminal Bonus (if declared)</li>
+                                </ul>
+                            </li>
+                            <li>Minimum 105% of premiums paid</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="benefit-box">
+                        <h5><i class="fas fa-coins text-warning me-2"></i>Maturity Benefit</h5>
+                        <ul>
+                            <li>Basic Sum Assured plus:
+                                <ul>
+                                    <li>Guaranteed Additions (₹100 per ₹1000 SA)</li>
+                                    <li>Loyalty Additions</li>
+                                    <li>Terminal Bonus</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <div class="benefit-box">
+                        <h5><i class="fas fa-plus-circle text-success me-2"></i>Additional Benefits</h5>
+                        <ul>
+                            <li>High Sum Assured Rebate</li>
+                            <li>Premium Waiver Options</li>
+                            <li>Flexible Premium Payment Terms</li>
+                            <li>Tax Benefits under Section 80C & 10(10D)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="benefit-box">
+                        <h5><i class="fas fa-star text-primary me-2"></i>Exclusive Features</h5>
+                        <ul>
+                            <li>Special Surrender Value Factors</li>
+                            <li>Enhanced Loan Facility</li>
+                            <li>Priority Claim Settlement</li>
+                            <li>Dedicated Relationship Manager</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Eligibility -->
+        <section class="mb-5">
+            <h2 class="mb-4">Eligibility Criteria</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>Minimum Entry Age</th>
+                            <td>18 years</td>
+                        </tr>
+                        <tr>
+                            <th>Maximum Entry Age</th>
+                            <td>50 years</td>
+                        </tr>
+                        <tr>
+                            <th>Policy Term</th>
+                            <td>14 to 30 years</td>
+                        </tr>
+                        <tr>
+                            <th>Premium Paying Term</th>
+                            <td>10 years (Limited) / Equal to Policy Term (Regular)</td>
+                        </tr>
+                        <tr>
+                            <th>Minimum Sum Assured</th>
+                            <td>₹1 Crore</td>
+                        </tr>
+                        <tr>
+                            <th>Maximum Sum Assured</th>
+                            <td>No Limit (Subject to Underwriting)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Premium Calculator -->
+        <section class="premium-calculator mb-5">
+            <h2 class="mb-4">Calculate Premium</h2>
+            <form id="premiumCalcForm" class="needs-validation" novalidate>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="age" class="form-label">Age</label>
+                        <input type="number" class="form-control" id="age" required min="18" max="50">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="gender" class="form-label">Gender</label>
+                        <select class="form-select" id="gender" required>
+                            <option value="">Choose...</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="sumAssured" class="form-label">Sum Assured (₹)</label>
+                        <input type="number" class="form-control" id="sumAssured" required min="10000000">
+                        <div class="form-text">Minimum: ₹1 Crore</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="term" class="form-label">Policy Term</label>
+                        <select class="form-select" id="term" required>
+                            <option value="">Choose...</option>
+                            <option value="14">14 years</option>
+                            <option value="20">20 years</option>
+                            <option value="25">25 years</option>
+                            <option value="30">30 years</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="paymentTerm" class="form-label">Premium Payment Term</label>
+                        <select class="form-select" id="paymentTerm" required>
+                            <option value="">Choose...</option>
+                            <option value="10">10 years (Limited)</option>
+                            <option value="regular">Regular (Same as Policy Term)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="mode" class="form-label">Premium Mode</label>
+                        <select class="form-select" id="mode" required>
+                            <option value="">Choose...</option>
+                            <option value="yearly">Yearly</option>
+                            <option value="half-yearly">Half-Yearly</option>
+                            <option value="quarterly">Quarterly</option>
+                            <option value="monthly">Monthly</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary" type="submit">Calculate Premium</button>
+                    </div>
+                </div>
+            </form>
+            <div id="premiumResult" class="mt-4" style="display: none;">
+                <div class="alert alert-info">
+                    <h5 class="alert-heading">Premium Details</h5>
+                    <p class="mb-0">Base Premium: <span id="basePremium">₹0</span></p>
+                    <p class="mb-0">Modal Premium: <span id="modalPremium">₹0</span></p>
+                    <p class="mb-0">Estimated Maturity Value*: <span id="maturityValue">₹0</span></p>
+                    <small class="text-muted">* Including estimated bonuses and guaranteed additions. Actual amount may vary based on company's performance.</small>
+                </div>
+            </div>
+        </section>
+
+        <!-- Additional Features -->
+        <section class="mb-5">
+            <h2 class="mb-4">Premium Services</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-user-tie text-primary me-2"></i>Dedicated Support</h5>
+                            <ul>
+                                <li>Personal Relationship Manager</li>
+                                <li>24/7 Premium Support</li>
+                                <li>Priority Processing</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-percentage text-success me-2"></i>Enhanced Benefits</h5>
+                            <ul>
+                                <li>Higher Loan Limits</li>
+                                <li>Special Surrender Values</li>
+                                <li>Additional Tax Benefits</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-shield-alt text-warning me-2"></i>Premium Protection</h5>
+                            <ul>
+                                <li>Enhanced Coverage</li>
+                                <li>Accident Benefit Rider</li>
+                                <li>Critical Illness Rider</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Contact Us</h5>
+                    <p>For more information about Jeevan Shiromani</p>
+                    <p><i class="fas fa-phone"></i> Call us: 1800-XXX-XXXX</p>
+                    <p><i class="fas fa-envelope"></i> Email: premium.support@licadvisor.com</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>Important Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light">Premium Policy Brochure</a></li>
+                        <li><a href="#" class="text-light">Terms & Conditions</a></li>
+                        <li><a href="#" class="text-light">Premium Claim Process</a></li>
+                        <li><a href="#" class="text-light">Premium Services</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p class="mb-0">© 2025 LIC Advisor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Premium calculator logic
+        document.getElementById('premiumCalcForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const age = parseInt(document.getElementById('age').value);
+            const gender = document.getElementById('gender').value;
+            const sumAssured = parseInt(document.getElementById('sumAssured').value);
+            const term = parseInt(document.getElementById('term').value);
+            const paymentTerm = document.getElementById('paymentTerm').value;
+            const mode = document.getElementById('mode').value;
+            
+            // Basic premium calculation (simplified)
+            let basePremium = (sumAssured * 0.045) / (paymentTerm === '10' ? 10 : term);
+            
+            // Age factor
+            if (age > 40) {
+                basePremium *= (1 + ((age - 40) * 0.02)); // 2% extra for each year above 40
+            }
+            
+            // Gender discount
+            if (gender === 'female') {
+                basePremium *= 0.95; // 5% discount for females
+            }
+            
+            // High sum assured rebate
+            if (sumAssured >= 20000000) { // 2 Crore or more
+                basePremium *= 0.95; // 5% rebate
+            }
+            
+            // Mode factors
+            const modeFactors = {
+                'yearly': 1,
+                'half-yearly': 0.51,
+                'quarterly': 0.26,
+                'monthly': 0.087
+            };
+            
+            // Calculate modal premium
+            let modalPremium = basePremium * modeFactors[mode];
+            
+            // Calculate estimated maturity value
+            const guaranteedAdditions = sumAssured * 0.1 * term; // ₹100 per thousand per year
+            const estimatedBonus = sumAssured * 0.05 * term; // Assumed 5% bonus rate for premium plan
+            const maturityValue = sumAssured + guaranteedAdditions + estimatedBonus;
+            
+            document.getElementById('basePremium').textContent = '₹' + Math.round(basePremium).toLocaleString('en-IN');
+            document.getElementById('modalPremium').textContent = '₹' + Math.round(modalPremium).toLocaleString('en-IN');
+            document.getElementById('maturityValue').textContent = '₹' + Math.round(maturityValue).toLocaleString('en-IN');
+            document.getElementById('premiumResult').style.display = 'block';
+        });
+    </script>
+</body>
+</html>

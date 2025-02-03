@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Children's Money Back Plan - LIC Child Plan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .policy-header {
+            background: linear-gradient(135deg, #FF9A9E 0%, #FAD0C4 100%);
+            color: white;
+            padding: 3rem 0;
+        }
+        .feature-card {
+            border: none;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            margin-bottom: 1.5rem;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        .feature-icon {
+            font-size: 2rem;
+            color: #FF9A9E;
+            margin-bottom: 1rem;
+        }
+        .benefit-list li {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+        .benefit-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+        }
+        .premium-calculator {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 1rem;
+        }
+        .milestone-timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+        .milestone-timeline::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background: #FF9A9E;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+        .milestone {
+            padding: 1rem;
+            background: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        .milestone::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #FF9A9E;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .milestone.left::before {
+            right: -60px;
+        }
+        .milestone.right::before {
+            left: -60px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">LIC Advisor</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Insurance Plans</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#about">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Policy Header -->
+    <header class="policy-header">
+        <div class="container">
+            <h1 class="display-4">New Children's Money Back Plan</h1>
+            <p class="lead">A Perfect Plan to Secure Your Child's Future</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container my-5">
+        <!-- Policy Overview -->
+        <section class="mb-5">
+            <h2 class="mb-4">Plan Overview</h2>
+            <p class="lead">The New Children's Money Back Plan is specially designed to meet the educational and other needs of children through money back payments at regular intervals.</p>
+            
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-graduation-cap feature-icon"></i>
+                            <h5 class="card-title">Education Support</h5>
+                            <p class="card-text">Regular payouts for education expenses</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-shield-alt feature-icon"></i>
+                            <h5 class="card-title">Financial Security</h5>
+                            <p class="card-text">Protection for child's future</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-coins feature-icon"></i>
+                            <h5 class="card-title">Money Back Benefits</h5>
+                            <p class="card-text">Regular survival benefits</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Money Back Benefits Timeline -->
+        <section class="mb-5">
+            <h2 class="mb-4">Money Back Benefits</h2>
+            <div class="milestone-timeline">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="milestone left">
+                            <h5>Age 18</h5>
+                            <p>20% of Sum Assured</p>
+                            <small>Perfect for Higher Education</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 offset-md-6">
+                        <div class="milestone right">
+                            <h5>Age 20</h5>
+                            <p>20% of Sum Assured</p>
+                            <small>Support for College Expenses</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="milestone left">
+                            <h5>Age 22</h5>
+                            <p>30% of Sum Assured</p>
+                            <small>Career Start Support</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 offset-md-6">
+                        <div class="milestone right">
+                            <h5>Age 25 (Maturity)</h5>
+                            <p>30% of Sum Assured + Bonuses</p>
+                            <small>Final Settlement</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Benefits -->
+        <section class="mb-5">
+            <h2 class="mb-4">Key Benefits</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-shield-alt text-primary me-2"></i>Death Benefit</h5>
+                            <ul>
+                                <li>Sum Assured + Vested Bonuses</li>
+                                <li>Future premiums waived</li>
+                                <li>Money back benefits continue</li>
+                                <li>Additional death benefit equal to Sum Assured</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-gift text-success me-2"></i>Survival Benefits</h5>
+                            <ul>
+                                <li>Regular money back payments</li>
+                                <li>Guaranteed additions</li>
+                                <li>Loyalty additions at maturity</li>
+                                <li>Final maturity benefit</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Eligibility -->
+        <section class="mb-5">
+            <h2 class="mb-4">Eligibility Criteria</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>Minimum Entry Age (Child)</th>
+                            <td>0 years (30 days)</td>
+                        </tr>
+                        <tr>
+                            <th>Maximum Entry Age (Child)</th>
+                            <td>12 years</td>
+                        </tr>
+                        <tr>
+                            <th>Maximum Age at Maturity</th>
+                            <td>25 years</td>
+                        </tr>
+                        <tr>
+                            <th>Policy Term</th>
+                            <td>13 to 25 years</td>
+                        </tr>
+                        <tr>
+                            <th>Minimum Sum Assured</th>
+                            <td>₹1 Lakh</td>
+                        </tr>
+                        <tr>
+                            <th>Maximum Sum Assured</th>
+                            <td>No Limit (Subject to Underwriting)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Premium Calculator -->
+        <section class="premium-calculator mb-5">
+            <h2 class="mb-4">Calculate Premium</h2>
+            <form id="premiumCalcForm" class="needs-validation" novalidate>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="childAge" class="form-label">Child's Age</label>
+                        <input type="number" class="form-control" id="childAge" required min="0" max="12">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="gender" class="form-label">Gender</label>
+                        <select class="form-select" id="gender" required>
+                            <option value="">Choose...</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="sumAssured" class="form-label">Sum Assured (₹)</label>
+                        <input type="number" class="form-control" id="sumAssured" required min="100000">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="term" class="form-label">Policy Term</label>
+                        <select class="form-select" id="term" required>
+                            <option value="">Choose...</option>
+                            <option value="13">13 years</option>
+                            <option value="15">15 years</option>
+                            <option value="20">20 years</option>
+                            <option value="25">25 years</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="mode" class="form-label">Premium Mode</label>
+                        <select class="form-select" id="mode" required>
+                            <option value="">Choose...</option>
+                            <option value="yearly">Yearly</option>
+                            <option value="half-yearly">Half-Yearly</option>
+                            <option value="quarterly">Quarterly</option>
+                            <option value="monthly">Monthly</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary" type="submit">Calculate Premium</button>
+                    </div>
+                </div>
+            </form>
+            <div id="premiumResult" class="mt-4" style="display: none;">
+                <div class="alert alert-info">
+                    <h5 class="alert-heading">Estimated Premium Amount</h5>
+                    <p class="mb-0">Base Premium: <span id="basePremium">₹0</span></p>
+                    <p class="mb-0">Modal Premium: <span id="modalPremium">₹0</span></p>
+                    <p class="mb-0">Total Money Back Benefits: <span id="moneyBackBenefits">₹0</span></p>
+                    <small class="text-muted">* The actual premium may vary based on underwriting decisions.</small>
+                </div>
+            </div>
+        </section>
+
+        <!-- Additional Features -->
+        <section class="mb-5">
+            <h2 class="mb-4">Additional Features</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-umbrella text-primary me-2"></i>Premium Waiver</h5>
+                            <p>In case of unfortunate death of parent/proposer:</p>
+                            <ul>
+                                <li>All future premiums waived</li>
+                                <li>Policy continues with benefits</li>
+                                <li>Money back payments as scheduled</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-percentage text-success me-2"></i>Tax Benefits</h5>
+                            <ul>
+                                <li>Premium: Section 80C</li>
+                                <li>Maturity: Section 10(10D)</li>
+                                <li>Money Back: Tax Free</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-hand-holding-usd text-warning me-2"></i>Loan Facility</h5>
+                            <ul>
+                                <li>Available after 3 years</li>
+                                <li>Up to 90% of Surrender Value</li>
+                                <li>Easy repayment terms</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Contact Us</h5>
+                    <p>For more information about New Children's Money Back Plan</p>
+                    <p><i class="fas fa-phone"></i> Call us: 1800-XXX-XXXX</p>
+                    <p><i class="fas fa-envelope"></i> Email: support@licadvisor.com</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>Important Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light">Policy Brochure</a></li>
+                        <li><a href="#" class="text-light">Terms & Conditions</a></li>
+                        <li><a href="#" class="text-light">Claim Process</a></li>
+                        <li><a href="#" class="text-light">FAQs</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p class="mb-0">© 2025 LIC Advisor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Premium calculator logic
+        document.getElementById('premiumCalcForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const childAge = parseInt(document.getElementById('childAge').value);
+            const gender = document.getElementById('gender').value;
+            const sumAssured = parseInt(document.getElementById('sumAssured').value);
+            const term = parseInt(document.getElementById('term').value);
+            const mode = document.getElementById('mode').value;
+            
+            // Basic premium calculation
+            let basePremium = (sumAssured * 0.045) * ((25 - childAge) / term);
+            
+            // Mode factors
+            const modeFactors = {
+                'yearly': 1,
+                'half-yearly': 0.51,
+                'quarterly': 0.26,
+                'monthly': 0.087
+            };
+            
+            // Calculate modal premium
+            let modalPremium = basePremium * modeFactors[mode];
+            
+            // Gender discount
+            if (gender === 'female') {
+                basePremium *= 0.95;
+                modalPremium *= 0.95;
+            }
+            
+            // Calculate total money back benefits
+            const moneyBackBenefits = sumAssured;
+            
+            document.getElementById('basePremium').textContent = '₹' + Math.round(basePremium).toLocaleString('en-IN');
+            document.getElementById('modalPremium').textContent = '₹' + Math.round(modalPremium).toLocaleString('en-IN');
+            document.getElementById('moneyBackBenefits').textContent = '₹' + Math.round(moneyBackBenefits).toLocaleString('en-IN');
+            document.getElementById('premiumResult').style.display = 'block';
+        });
+    </script>
+</body>
+</html>

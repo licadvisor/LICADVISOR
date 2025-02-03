@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIC Insurance Solutions - Your Trusted Insurance Partner</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .calculator-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .calculator-form label {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        
+        .calculator-form .form-floating {
+            margin-bottom: 1.5rem;
+        }
+        
+        .calculator-form .form-control,
+        .calculator-form .form-select {
+            height: 3.5rem;
+            padding: 1rem 0.75rem;
+            font-size: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #ced4da;
+        }
+        
+        .calculator-form .input-group {
+            margin-bottom: 0.25rem;
+        }
+        
+        .calculator-form .input-group-text {
+            background-color: #f8f9fa;
+            font-weight: 500;
+            padding: 0.75rem;
+            border-radius: 0.5rem 0 0 0.5rem;
+        }
+        
+        .calculator-form .form-text {
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            color: #6c757d;
+        }
+        
+        .calculator-form .form-floating label {
+            padding: 1rem 0.75rem;
+        }
+        
+        .calculator-form .btn-calculate {
+            height: 3.5rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* Calculator Steps Styling */
+        .calculator-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 3rem;
+            position: relative;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .calculator-steps::before {
+            content: '';
+            position: absolute;
+            top: 24px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e9ecef;
+            z-index: 1;
+        }
+
+        .calculator-steps::after {
+            content: '';
+            position: absolute;
+            top: 24px;
+            left: 0;
+            height: 2px;
+            background: #0d6efd;
+            z-index: 1;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .calculator-steps.step-1::after { width: 0%; }
+        .calculator-steps.step-2::after { width: 50%; }
+        .calculator-steps.step-3::after { width: 100%; }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            padding: 0 10px;
+            background: white;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #6c757d;
+            margin-bottom: 0.5rem;
+            border: 2px solid #dee2e6;
+            transition: all 0.3s ease;
+        }
+
+        .step-text {
+            font-weight: 500;
+            color: #6c757d;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .step.active .step-number {
+            background: #0d6efd;
+            color: white;
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.2);
+        }
+
+        .step.active .step-text {
+            color: #0d6efd;
+        }
+
+        .step.completed .step-number {
+            background: #198754;
+            color: white;
+            border-color: #198754;
+        }
+
+        .step.completed .step-text {
+            color: #198754;
+        }
+
+        .calculator-card {
+            background: #fff;
+            border-radius: 1rem;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08);
+            padding: 2rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .premium-result {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #dee2e6;
+        }
+        .premium-amount {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #0d6efd;
+        }
+        .premium-amount .currency {
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin-right: 0.25rem;
+        }
+        .premium-amount .frequency {
+            font-size: 1rem;
+            color: #6c757d;
+            font-weight: normal;
+        }
+
+        /* Dropdown menu styling */
+        .navbar .dropdown-menu {
+            border: none;
+            border-radius: 0.5rem;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 0;
+        }
+        
+        .navbar .dropdown-item {
+            padding: 0.5rem 1.5rem;
+            font-size: 0.95rem;
+            color: #333;
+            transition: all 0.2s ease;
+        }
+        
+        .navbar .dropdown-item:hover {
+            background-color: #f8f9fa;
+            color: #0d6efd;
+            padding-left: 2rem;
+        }
+        
+        .navbar .dropdown-item i {
+            width: 1.5rem;
+            margin-right: 0.5rem;
+            color: #6c757d;
+        }
+        
+        .navbar .dropdown-divider {
+            margin: 0.5rem 0;
+        }
+        
+        .policy-category {
+            font-weight: 600;
+            color: #6c757d;
+            padding: 0.5rem 1.5rem;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Nested Dropdown Menu Styling */
+        .navbar .dropdown-menu {
+            border: none;
+            border-radius: 0.5rem;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 0;
+        }
+        
+        .navbar .dropdown-item {
+            padding: 0.5rem 1.5rem;
+            font-size: 0.95rem;
+            color: #333;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        
+        .navbar .dropdown-item:hover {
+            background-color: #f8f9fa;
+            color: #0d6efd;
+        }
+        
+        .navbar .dropdown-item i {
+            width: 1.5rem;
+            margin-right: 0.5rem;
+            color: #6c757d;
+        }
+        
+        .navbar .dropdown-divider {
+            margin: 0.5rem 0;
+        }
+        
+        /* Nested Dropdown Styling */
+        .navbar .dropdown-submenu {
+            position: relative;
+        }
+        
+        .navbar .dropdown-submenu > .dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -0.5rem;
+            display: none;
+        }
+        
+        .navbar .dropdown-submenu:hover > .dropdown-menu {
+            display: block;
+        }
+        
+        .navbar .dropdown-submenu > .dropdown-item:after {
+            display: inline-block;
+            margin-left: auto;
+            content: "";
+            border-top: 0.3em solid transparent;
+            border-right: 0;
+            border-bottom: 0.3em solid transparent;
+            border-left: 0.3em solid;
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .category-item {
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .category-item i.category-icon {
+            margin-right: 0.5rem;
+            width: 1.5rem;
+            text-align: center;
+        }
+
+        /* Dropdown submenu styles */
+        .dropdown-submenu {
+            position: relative;
+        }
+        
+        .dropdown-submenu .dropdown-menu {
+            top: 0;
+            left: auto;
+            right: 100%;
+            margin-top: 0;
+            margin-right: 0.1rem;
+            border-radius: 0.25rem;
+            background: #fff;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        }
+        
+        .dropdown-submenu .dropdown-toggle::after {
+            display: inline-block;
+            margin-left: 0.255em;
+            vertical-align: 0.255em;
+            content: "";
+            border-top: 0.3em solid transparent;
+            border-right: 0.3em solid;
+            border-bottom: 0.3em solid transparent;
+            border-left: 0;
+            float: left;
+            margin-right: 0.5rem;
+        }
+        
+        /* Enhance dropdown menu appearance */
+        .dropdown-menu {
+            min-width: 220px;
+            padding: 0.5rem 0;
+            border: none;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        }
+        
+        .dropdown-item {
+            padding: 0.5rem 1.5rem;
+            color: #333;
+            font-weight: 400;
+            transition: all 0.2s ease;
+        }
+        
+        .dropdown-item:hover {
+            background-color: #f8f9fa;
+            color: #0d6efd;
+            padding-left: 2rem;
+        }
+        
+        /* Add visual separation between main menu and submenu */
+        .dropdown-submenu > .dropdown-menu {
+            margin-right: 0.5rem;
+            border-left: 3px solid #0d6efd;
+        }
+        
+        /* Ensure submenus are visible */
+        .dropdown-submenu:hover > .dropdown-menu {
+            display: block;
+        }
+        
+        /* Add hover effect to submenu parent */
+        .dropdown-submenu:hover > .dropdown-item {
+            background-color: #f8f9fa;
+            color: #0d6efd;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <span><i class="fas fa-phone"></i> Call Us: 1800-123-4567</span>
+                    <span><i class="fas fa-envelope"></i> Email: info@licadvisor.com</span>
+                </div>
+                <div class="col-md-6 text-end">
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="https://lifeinsuranceofindia.in/wp-content/uploads/2023/08/cropped-LIC-Logo-PNG-HD-Quality.png" alt="LIC Logo" class="logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Insurance Plans
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <!-- Term Plans -->
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item dropdown-toggle" href="#">Term Insurance Plans</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="./policies/jeevan-amar.html">Jeevan Amar</a></li>
+                                    <li><a class="dropdown-item" href="./policies/tech-term.html">Tech Term Plan</a></li>
+                                </ul>
+                            </li>
+                            <!-- Endowment Plans -->
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item dropdown-toggle" href="#">Endowment Plans</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="./policies/jeevan-lakshya.html">Jeevan Lakshya</a></li>
+                                    <li><a class="dropdown-item" href="./policies/jeevan-labh.html">Jeevan Labh</a></li>
+                                    <li><a class="dropdown-item" href="./policies/bima-jyoti.html">Bima Jyoti</a></li>
+                                    <li><a class="dropdown-item" href="./policies/new-endowment.html">New Endowment Plan</a></li>
+                                    <li><a class="dropdown-item" href="./policies/jeevan-anand.html">Jeevan Anand</a></li>
+                                </ul>
+                            </li>
+                            <!-- Money Back Plans -->
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item dropdown-toggle" href="#">Money Back Plans</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="./policies/new-money-back-20.html">New Money Back-20 Years</a></li>
+                                    <li><a class="dropdown-item" href="./policies/jeevan-tarang.html">Jeevan Tarang</a></li>
+                                </ul>
+                            </li>
+                            <!-- Children's Plans -->
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item dropdown-toggle" href="#">Children's Plans</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="./policies/new-childrens-money-back.html">New Children's Money Back</a></li>
+                                    <li><a class="dropdown-item" href="./policies/jeevan-tarun.html">Jeevan Tarun</a></li>
+                                    <li><a class="dropdown-item" href="./policies/jeevan-ankur.html">Jeevan Ankur</a></li>
+                                </ul>
+                            </li>
+                            <!-- Pension Plans -->
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item dropdown-toggle" href="#">Pension Plans</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="./policies/jeevan-shanti.html">Jeevan Shanti</a></li>
+                                    <li><a class="dropdown-item" href="./policies/new-jeevan-nidhi.html">New Jeevan Nidhi</a></li>
+                                    <li><a class="dropdown-item" href="./policies/pradhan-mantri-vaya-vandana.html">Pradhan Mantri Vaya Vandana</a></li>
+                                </ul>
+                            </li>
+                            <!-- High Value Plans -->
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item dropdown-toggle" href="#">High Value Plans</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="./policies/jeevan-shiromani.html">Jeevan Shiromani</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+                <div class="nav-right-section">
+                    <div class="dropdown">
+                        <a href="#" class="nav-btn dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fas fa-user"></i>
+                            <span>Login</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="login/customer-login.html">
+                                    <i class="fas fa-user me-2"></i>Customer Login
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="login/admin-login.html">
+                                    <i class="fas fa-user-shield me-2"></i>Admin Login
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item" href="login/register.html">
+                                    <i class="fas fa-user-plus me-2"></i>Register
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="#premium-cart" class="nav-btn">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        <span>Premium Cart</span>
+                        <span class="cart-badge">0</span>
+                    </a>
+                    <a href="#calculate-premium" class="nav-btn btn-quote">
+                        <i class="fas fa-calculator"></i>
+                        <span>Calculate Premium</span>
+                    </a>
+                    <a href="#buy-policy" class="nav-btn btn-buy">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Buy Policy</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="hero-content">
+                        <h1>Secure Your Family's Future with LIC Insurance</h1>
+                        <p>Get comprehensive life insurance coverage with India's most trusted insurance provider</p>
+                        <div class="hero-buttons">
+                            <a href="#contact" class="btn btn-primary">Get a Quote</a>
+                            <a href="#plans" class="btn btn-outline">View Plans</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="hero-image">
+                        <img src="https://lifeinsuranceofindia.in/wp-content/uploads/2023/08/LIC-Agent.jpg" alt="Insurance Family" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-header text-center mb-5">
+                <h2>Why Choose LIC?</h2>
+                <p class="lead">India's Most Trusted Insurance Provider Since 1956</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="feature-box">
+                        <div class="vertical-lines"></div>
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Trusted by Millions</h3>
+                        <p>Over 30+ crore active policies and counting, serving generations of Indian families</p>
+                        <div class="feature-stats">
+                            <span class="counter">300</span>M+
+                            <small>Active Policies</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature-box">
+                        <div class="vertical-lines"></div>
+                        <div class="feature-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3>Claim Settlement</h3>
+                        <p>98.93% claim settlement ratio, ensuring your family's financial security</p>
+                        <div class="feature-stats">
+                            <span class="counter">98.93</span>%
+                            <small>Settlement Ratio</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature-box">
+                        <div class="vertical-lines"></div>
+                        <div class="feature-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <h3>Market Leader</h3>
+                        <p>₹39,49,270 crore total assets under management for your security</p>
+                        <div class="feature-stats">
+                            <span class="counter">39.49</span>L Cr
+                            <small>Assets Managed</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature-box">
+                        <div class="vertical-lines"></div>
+                        <div class="feature-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3>Expert Guidance</h3>
+                        <p>13.5 lakh+ trained advisors ready to assist you nationwide</p>
+                        <div class="feature-stats">
+                            <span class="counter">13.5</span>L+
+                            <small>Advisors</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plans Section -->
+    <section class="plans" id="plans">
+        <div class="container">
+            <div class="section-header text-center mb-5">
+                <h2>Our Insurance Plans</h2>
+                <p class="lead">Comprehensive Coverage for Every Life Stage</p>
+            </div>
+            <div class="row g-4">
+                <!-- Term Life Insurance -->
+                <div class="col-md-4">
+                    <div class="plan-card">
+                        <div class="vertical-lines"></div>
+                        <div class="ribbon-wrapper">
+                            <div class="ribbon">Most Popular</div>
+                        </div>
+                        <div class="plan-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Term Life Insurance</h3>
+                        <p>Maximum protection at affordable rates</p>
+                        <div class="plan-features">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Coverage up to ₹1 Crore</li>
+                                <li><i class="fas fa-check"></i> Premium from ₹500/month</li>
+                                <li><i class="fas fa-check"></i> Tax benefits under 80C</li>
+                                <li><i class="fas fa-check"></i> 40+ Critical illness cover</li>
+                            </ul>
+                        </div>
+                        <a href="#" class="btn btn-primary">Get Quote</a>
+                    </div>
+                </div>
+
+                <!-- Money Back Policy -->
+                <div class="col-md-4">
+                    <div class="plan-card">
+                        <div class="vertical-lines"></div>
+                        <div class="ribbon-wrapper">
+                            <div class="ribbon">High Returns</div>
+                        </div>
+                        <div class="plan-icon">
+                            <i class="fas fa-piggy-bank"></i>
+                        </div>
+                        <h3>Money Back Policy</h3>
+                        <p>Regular returns with life coverage</p>
+                        <div class="plan-features">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Survival benefits every 5 years</li>
+                                <li><i class="fas fa-check"></i> Guaranteed returns</li>
+                                <li><i class="fas fa-check"></i> Flexible payment terms</li>
+                                <li><i class="fas fa-check"></i> Loyalty additions</li>
+                            </ul>
+                        </div>
+                        <a href="#" class="btn btn-primary">Get Quote</a>
+                    </div>
+                </div>
+
+                <!-- ULIP Plan -->
+                <div class="col-md-4">
+                    <div class="plan-card">
+                        <div class="vertical-lines"></div>
+                        <div class="ribbon-wrapper">
+                            <div class="ribbon">Market Linked</div>
+                        </div>
+                        <div class="plan-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>ULIP Plan</h3>
+                        <p>Market-linked returns with protection</p>
+                        <div class="plan-features">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Market-linked returns</li>
+                                <li><i class="fas fa-check"></i> Fund switching option</li>
+                                <li><i class="fas fa-check"></i> Tax-free maturity</li>
+                                <li><i class="fas fa-check"></i> Wealth creation</li>
+                            </ul>
+                        </div>
+                        <a href="#" class="btn btn-primary">Get Quote</a>
+                    </div>
+                </div>
+
+                <!-- Child Education Plan -->
+                <div class="col-md-4">
+                    <div class="plan-card">
+                        <div class="vertical-lines"></div>
+                        <div class="ribbon-wrapper">
+                            <div class="ribbon">Child's Future</div>
+                        </div>
+                        <div class="plan-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Child Education Plan</h3>
+                        <p>Secure your child's dreams</p>
+                        <div class="plan-features">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Education milestone payouts</li>
+                                <li><i class="fas fa-check"></i> Premium waiver benefit</li>
+                                <li><i class="fas fa-check"></i> Flexible payment options</li>
+                                <li><i class="fas fa-check"></i> Additional rider benefits</li>
+                            </ul>
+                        </div>
+                        <a href="#" class="btn btn-primary">Get Quote</a>
+                    </div>
+                </div>
+
+                <!-- Pension Plan -->
+                <div class="col-md-4">
+                    <div class="plan-card">
+                        <div class="vertical-lines"></div>
+                        <div class="ribbon-wrapper">
+                            <div class="ribbon">Retirement</div>
+                        </div>
+                        <div class="plan-icon">
+                            <i class="fas fa-umbrella-beach"></i>
+                        </div>
+                        <h3>Pension Plan</h3>
+                        <p>Plan for a comfortable retirement</p>
+                        <div class="plan-features">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Guaranteed pension for life</li>
+                                <li><i class="fas fa-check"></i> Vesting age flexibility</li>
+                                <li><i class="fas fa-check"></i> Return of purchase price</li>
+                                <li><i class="fas fa-check"></i> Joint life option</li>
+                            </ul>
+                        </div>
+                        <a href="#" class="btn btn-primary">Get Quote</a>
+                    </div>
+                </div>
+
+                <!-- Health Insurance -->
+                <div class="col-md-4">
+                    <div class="plan-card">
+                        <div class="vertical-lines"></div>
+                        <div class="ribbon-wrapper">
+                            <div class="ribbon">Health Cover</div>
+                        </div>
+                        <div class="plan-icon">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <h3>Health Insurance</h3>
+                        <p>Comprehensive health protection</p>
+                        <div class="plan-features">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Cashless hospitalization</li>
+                                <li><i class="fas fa-check"></i> Pre & post care coverage</li>
+                                <li><i class="fas fa-check"></i> No claim bonus</li>
+                                <li><i class="fas fa-check"></i> Family floater option</li>
+                            </ul>
+                        </div>
+                        <a href="#" class="btn btn-primary">Get Quote</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section class="calculator" id="calculator">
+        <div class="container">
+            <div class="section-header text-center mb-5">
+                <h2>Premium Calculator</h2>
+                <p class="lead">Calculate your premium in simple steps</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="calculator-card">
+                        <div class="calculator-steps step-1">
+                            <div class="step active">
+                                <div class="step-number">1</div>
+                                <div class="step-text">Plan Details</div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">2</div>
+                                <div class="step-text">Personal Info</div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">3</div>
+                                <div class="step-text">Premium Result</div>
+                            </div>
+                        </div>
+                        <form class="calculator-form" id="premiumCalculatorForm" onsubmit="calculatePremium(event)">
+                            <div class="row g-4">
+                                <!-- Plan Type -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="planType">Plan Type <span class="text-danger">*</span></label>
+                                        <select class="form-select" id="planType" required>
+                                            <option value="">Select Plan Type</option>
+                                            <option value="term">Term Insurance</option>
+                                            <option value="endowment">Endowment Plan</option>
+                                            <option value="moneyback">Money Back Policy</option>
+                                            <option value="ulip">ULIP Plan</option>
+                                            <option value="pension">Pension Plan</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Age -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="age">Your Age <span class="text-danger">*</span></label>
+                                        <input type="number" class="form-control" id="age" placeholder="Enter your age" required min="18" max="65">
+                                    </div>
+                                </div>
+
+                                <!-- Sum Assured -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="sumAssured">Sum Assured <span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">₹</span>
+                                            <input type="text" class="form-control" id="sumAssured" placeholder="Enter amount" required oninput="formatSumAssured(this)">
+                                        </div>
+                                        <small class="form-text text-muted" id="sumAssuredInWords"></small>
+                                    </div>
+                                </div>
+
+                                <!-- Payment Frequency -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="paymentFrequency">Payment Frequency <span class="text-danger">*</span></label>
+                                        <select class="form-select" id="paymentFrequency" required>
+                                            <option value="">Select Payment Frequency</option>
+                                            <option value="monthly">Monthly</option>
+                                            <option value="quarterly">Quarterly</option>
+                                            <option value="halfyearly">Half Yearly</option>
+                                            <option value="yearly">Yearly</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Policy Term -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="policyTerm">Policy Term <span class="text-danger">*</span></label>
+                                        <select class="form-select" id="policyTerm" required>
+                                            <option value="">Select Policy Term</option>
+                                            <option value="5">5 Years</option>
+                                            <option value="10">10 Years</option>
+                                            <option value="15">15 Years</option>
+                                            <option value="16">16 Years</option>
+                                            <option value="20">20 Years</option>
+                                            <option value="25">25 Years</option>
+                                            <option value="30">30 Years</option>
+                                            <option value="35">35 Years</option>
+                                            <option value="40">40 Years</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Calculate Button -->
+                                <div class="col-12 text-center mt-4">
+                                    <button type="submit" class="btn btn-primary btn-calculate px-5">Calculate Premium</button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- Premium Result Section -->
+                        <div class="premium-result" id="premiumResult" style="display: none;">
+                            <div class="text-center mb-4">
+                                <h4 class="mb-3">Estimated Premium Amount</h4>
+                                <div class="premium-amount mb-3">
+                                    <span class="currency">₹</span>
+                                    <span class="amount" id="calculatedPremium">0</span>
+                                    <span class="frequency" id="premiumFrequency"></span>
+                                </div>
+                                <div class="alert alert-info mt-3">
+                                    <i class="fas fa-info-circle me-2"></i>
+                                    <strong>Important Note:</strong>
+                                    <p class="mb-1">This is an indicative premium calculation based on standard rates. The actual premium may vary based on:</p>
+                                    <ul class="text-start small mb-0">
+                                        <li>Medical examination results</li>
+                                        <li>Occupation and lifestyle factors</li>
+                                        <li>Additional riders or benefits selected</li>
+                                        <li>Current LIC policies and regulations</li>
+                                        <li>Special discount schemes or promotions</li>
+                                    </ul>
+                                    <p class="mt-2 mb-0">For the most accurate premium quote, please consult with our LIC advisor.</p>
+                                </div>
+                                <button type="button" class="btn btn-outline-primary mt-3" onclick="resetCalculator()">
+                                    Calculate Again
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Contact Us</h2>
+                <p>Get in touch with our insurance experts</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <form class="contact-form">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" placeholder="Your Name">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="email" class="form-control" placeholder="Email Address">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="tel" class="form-control" placeholder="Phone Number">
+                            </div>
+                            <div class="col-md-6">
+                                <select class="form-control">
+                                    <option>Select Insurance Type</option>
+                                    <option>Term Insurance</option>
+                                    <option>Endowment Plan</option>
+                                    <option>Child Plan</option>
+                                </select>
+                            </div>
+                        </div>
+                        <textarea class="form-control" rows="4" placeholder="Your Message"></textarea>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+                <div class="col-lg-6">
+                    <div class="contact-info">
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4>Our Location</h4>
+                                <p>123 Insurance Street, Mumbai, Maharashtra 400001</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h4>Call Us</h4>
+                                <p>1800-123-4567</p>
+                                <p>+91 98765 43210</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>Email Us</h4>
+                                <p>info@licadvisor.com</p>
+                                <p>support@licadvisor.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="footer-about">
+                        <img src="https://lifeinsuranceofindia.in/wp-content/uploads/2023/08/cropped-LIC-Logo-PNG-HD-Quality.png" alt="LIC Logo" class="footer-logo">
+                        <p>Your trusted partner in life insurance solutions with over 30 years of experience in securing families' futures.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#plans">Insurance Plans</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h4>Insurance Plans</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Term Insurance</a></li>
+                        <li><a href="#">Endowment Plans</a></li>
+                        <li><a href="#">Money Back Policy</a></li>
+                        <li><a href="#">Child Plans</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h4>Contact Info</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Insurance Street, Mumbai</li>
+                        <li><i class="fas fa-phone"></i> 1800-123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@licadvisor.com</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>&copy; 2024 LIC Advisor. All rights reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-facebook"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Counter animation
+        const counters = document.querySelectorAll('.counter');
+        const speed = 200;
+
+        const animateCounter = (counter) => {
+            const target = +counter.innerText;
+            const count = +counter.innerText;
+            const increment = target / speed;
+
+            if (count < target) {
+                counter.innerText = Math.ceil(count + increment);
+                setTimeout(() => animateCounter(counter), 1);
+            } else {
+                counter.innerText = target;
+            }
+        };
+
+        // Animate counters when they come into view
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        counters.forEach(counter => observer.observe(counter));
+    </script>
+    <script>
+        // Premium rate table based on LIC standard rates
+        const PREMIUM_RATES = {
+            'term': {
+                baseRate: 0.15,  // per 1000 sum assured
+                ageFactor: {
+                    '18-25': 1,
+                    '26-35': 1.2,
+                    '36-45': 1.5,
+                    '46-55': 2.0,
+                    '56-65': 2.8
+                }
+            },
+            'endowment': {
+                baseRate: 0.45,  // per 1000 sum assured
+                ageFactor: {
+                    '18-25': 1,
+                    '26-35': 1.15,
+                    '36-45': 1.35,
+                    '46-55': 1.75,
+                    '56-65': 2.2
+                }
+            },
+            'moneyback': {
+                baseRate: 0.50,  // per 1000 sum assured
+                ageFactor: {
+                    '18-25': 1,
+                    '26-35': 1.2,
+                    '36-45': 1.4,
+                    '46-55': 1.8,
+                    '56-65': 2.3
+                }
+            },
+            'ulip': {
+                baseRate: 0.40,  // per 1000 sum assured
+                ageFactor: {
+                    '18-25': 1,
+                    '26-35': 1.1,
+                    '36-45': 1.3,
+                    '46-55': 1.6,
+                    '56-65': 2.0
+                }
+            },
+            'pension': {
+                baseRate: 0.55,  // per 1000 sum assured
+                ageFactor: {
+                    '18-25': 1,
+                    '26-35': 1.15,
+                    '36-45': 1.35,
+                    '46-55': 1.7,
+                    '56-65': 2.1
+                }
+            }
+        };
+
+        function getAgeBracket(age) {
+            if (age <= 25) return '18-25';
+            if (age <= 35) return '26-35';
+            if (age <= 45) return '36-45';
+            if (age <= 55) return '46-55';
+            return '56-65';
+        }
+
+        function calculatePremium(event) {
+            event.preventDefault();
+            
+            // Get form values
+            const planType = document.getElementById('planType').value;
+            const age = parseInt(document.getElementById('age').value);
+            const sumAssured = parseInt(document.getElementById('sumAssured').value.replace(/,/g, ''));
+            const paymentFrequency = document.getElementById('paymentFrequency').value;
+            const policyTerm = parseInt(document.getElementById('policyTerm').value);
+
+            // Validate inputs
+            if (!planType || !age || !sumAssured || !paymentFrequency || !policyTerm) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            // Get rate details for plan type
+            const planRates = PREMIUM_RATES[planType];
+            const ageBracket = getAgeBracket(age);
+            
+            // Calculate base annual premium
+            let annualPremium = (sumAssured / 1000) * planRates.baseRate;
+            
+            // Apply age factor
+            annualPremium *= planRates.ageFactor[ageBracket];
+            
+            // Apply policy term factor
+            if (policyTerm > 25) {
+                annualPremium *= 0.95; // Small discount for longer terms
+            } else if (policyTerm < 10) {
+                annualPremium *= 1.1; // Higher rate for shorter terms
+            }
+
+            // Calculate frequency-based premium
+            let premium = annualPremium;
+            let frequencyText = '/year';
+            
+            switch(paymentFrequency) {
+                case 'monthly':
+                    premium = (annualPremium / 12) * 1.05; // 5% loading for monthly mode
+                    frequencyText = '/month';
+                    break;
+                case 'quarterly':
+                    premium = (annualPremium / 4) * 1.03; // 3% loading for quarterly mode
+                    frequencyText = '/quarter';
+                    break;
+                case 'halfyearly':
+                    premium = (annualPremium / 2) * 1.02; // 2% loading for half-yearly mode
+                    frequencyText = '/half-year';
+                    break;
+            }
+
+            // Update UI
+            document.getElementById('calculatedPremium').textContent = Math.round(premium).toLocaleString('en-IN');
+            document.getElementById('premiumFrequency').textContent = frequencyText;
+            document.getElementById('premiumResult').style.display = 'block';
+            
+            // Update progress bar
+            document.querySelector('.calculator-steps').className = 'calculator-steps step-3';
+            
+            // Mark steps as completed
+            document.querySelectorAll('.step').forEach((step, index) => {
+                if (index < 2) {
+                    step.classList.add('completed');
+                } else {
+                    step.classList.add('active');
+                }
+            });
+
+            // Scroll to result
+            document.getElementById('premiumResult').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function resetCalculator() {
+            // Reset form
+            document.getElementById('premiumCalculatorForm').reset();
+            
+            // Hide result
+            document.getElementById('premiumResult').style.display = 'none';
+            
+            // Reset progress bar
+            document.querySelector('.calculator-steps').className = 'calculator-steps step-1';
+            
+            // Reset steps
+            document.querySelectorAll('.step').forEach((step, index) => {
+                step.classList.remove('completed', 'active');
+                if (index === 0) {
+                    step.classList.add('active');
+                }
+            });
+        }
+    </script>
+    <script>
+        function formatSumAssured(input) {
+            // Remove any non-digit characters
+            let value = input.value.replace(/\D/g, '');
+            
+            // Format with commas (Indian number system)
+            if (value) {
+                value = parseInt(value).toLocaleString('en-IN');
+                input.value = value;
+                
+                // Convert to words
+                const amountInWords = numberToWords(value.replace(/,/g, ''));
+                document.getElementById('sumAssuredInWords').textContent = amountInWords + ' Rupees Only';
+            } else {
+                document.getElementById('sumAssuredInWords').textContent = '';
+            }
+        }
+
+        function numberToWords(num) {
+            const single = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine'];
+            const double = ['Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+            const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+            const formatTens = (num) => {
+                if (num < 10) return single[num];
+                if (num < 20) return double[num - 10];
+                return tens[Math.floor(num / 10)] + (num % 10 ? ' ' + single[num % 10] : '');
+            };
+            
+            if (num === 0) return 'Zero';
+            
+            const convert = (num) => {
+                if (num < 100) return formatTens(num);
+                if (num < 1000) return single[Math.floor(num / 100)] + ' Hundred' + (num % 100 ? ' and ' + formatTens(num % 100) : '');
+                if (num < 100000) return convert(Math.floor(num / 1000)) + ' Thousand' + (num % 1000 ? ' ' + convert(num % 1000) : '');
+                if (num < 10000000) return convert(Math.floor(num / 100000)) + ' Lakh' + (num % 100000 ? ' ' + convert(num % 100000) : '');
+                return convert(Math.floor(num / 10000000)) + ' Crore' + (num % 10000000 ? ' ' + convert(num % 10000000) : '');
+            };
+            
+            return convert(parseInt(num));
+        }
+    </script>
+    <script>
+        // Initialize Bootstrap dropdowns
+        document.addEventListener('DOMContentLoaded', function() {
+            // Enable all dropdowns
+            var dropdowns = document.querySelectorAll('.dropdown-toggle');
+            dropdowns.forEach(function(dropdown) {
+                new bootstrap.Dropdown(dropdown);
+            });
+
+            // Handle nested dropdowns on mobile
+            if ('ontouchstart' in document.documentElement) {
+                document.querySelectorAll('.dropdown-submenu > .dropdown-item').forEach(function(item) {
+                    item.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        var submenu = this.nextElementSibling;
+                        document.querySelectorAll('.dropdown-submenu .dropdown-menu').forEach(function(menu) {
+                            if (menu !== submenu) {
+                                menu.style.display = 'none';
+                            }
+                        });
+                        submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+                    });
+                });
+            }
+        });
+    </script>
+    <script>
+        // Initialize dropdown functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Prevent dropdown from closing when clicking inside
+            document.querySelectorAll('.dropdown-menu').forEach(function(element) {
+                element.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            });
+
+            // Add hover functionality for desktop
+            if (window.innerWidth > 768) {
+                document.querySelectorAll('.dropdown').forEach(function(element) {
+                    element.addEventListener('mouseover', function() {
+                        this.querySelector('.dropdown-toggle').click();
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>

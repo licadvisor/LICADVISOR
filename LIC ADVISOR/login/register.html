@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - LIC Advisor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1e40af;
+            --bg-light: #f0f7ff;
+        }
+
+        body {
+            background: var(--bg-light);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(37, 99, 235, 0.05) 0%, transparent 20%);
+        }
+
+        .register-container {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(37, 99, 235, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid rgba(37, 99, 235, 0.1);
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo-container img {
+            max-width: 150px;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 4px 6px rgba(37, 99, 235, 0.1));
+        }
+
+        .logo-container h4 {
+            color: var(--primary-dark);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control {
+            padding: 0.75rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+            outline: none;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .input-group .form-control {
+            padding-left: 3rem;
+        }
+
+        .btn-register {
+            width: 100%;
+            padding: 0.875rem;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #ffffff;
+            background: var(--primary-color);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-register:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .invalid-feedback {
+            font-size: 0.875rem;
+            color: #ef4444;
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="register-container animate__animated animate__fadeIn">
+            <div class="logo-container">
+                <img src="https://lifeinsuranceofindia.in/wp-content/uploads/2023/08/cropped-LIC-Logo-PNG-HD-Quality.png" alt="LIC Logo" class="animate__animated animate__zoomIn">
+                <h4 class="animate__animated animate__fadeInUp">Create Account</h4>
+            </div>
+            
+            <div class="alert alert-danger d-none" id="registerError">
+                <i class="fas fa-exclamation-circle"></i>
+                <span></span>
+            </div>
+
+            <form id="registerForm" onsubmit="return handleRegister(event)">
+                <div class="input-group">
+                    <i class="fas fa-user input-icon"></i>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Full Name" required>
+                    <div class="invalid-feedback"></div>
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-envelope input-icon"></i>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" required>
+                    <div class="invalid-feedback"></div>
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-phone input-icon"></i>
+                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone Number" required>
+                    <div class="invalid-feedback"></div>
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-map-marker-alt input-icon"></i>
+                    <textarea class="form-control" id="address" name="address" placeholder="Address" rows="2" required></textarea>
+                    <div class="invalid-feedback"></div>
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-calendar input-icon"></i>
+                    <input type="date" class="form-control" id="dob" name="dob" required>
+                    <div class="invalid-feedback"></div>
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                    <div class="invalid-feedback"></div>
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
+                    <div class="invalid-feedback"></div>
+                </div>
+
+                <button type="submit" class="btn btn-register" id="registerButton">
+                    <i class="fas fa-user-plus me-2"></i>Create Account
+                </button>
+            </form>
+            
+            <div class="text-center mt-3">
+                <p class="mb-0">Already have an account? <a href="customer-login.html" class="text-primary">Login here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function showError(input, message) {
+            const feedback = input.nextElementSibling;
+            input.classList.add('is-invalid');
+            feedback.textContent = message;
+        }
+
+        function clearError(input) {
+            const feedback = input.nextElementSibling;
+            input.classList.remove('is-invalid');
+            feedback.textContent = '';
+        }
+
+        function validatePhone(phone) {
+            const phoneRegex = /^[0-9]{10}$/;
+            return phoneRegex.test(phone);
+        }
+
+        function validateEmail(email) {
+            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            return emailRegex.test(email);
+        }
+
+        function validateAge(dob) {
+            const birthDate = new Date(dob);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            
+            return age >= 18;
+        }
+
+        function validatePassword(password) {
+            // Password must be at least 8 characters long and contain at least one number and one letter
+            return password.length >= 8 && /[A-Za-z]/.test(password) && /[0-9]/.test(password);
+        }
+
+        async function handleRegister(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const formData = new FormData(form);
+            let isValid = true;
+
+            // Clear previous errors
+            form.querySelectorAll('.form-control').forEach(input => clearError(input));
+
+            // Validate name
+            const name = formData.get('name');
+            if (name.length < 3) {
+                showError(form.name, 'Name must be at least 3 characters long');
+                isValid = false;
+            }
+
+            // Validate email
+            const email = formData.get('email');
+            if (!validateEmail(email)) {
+                showError(form.email, 'Please enter a valid email address');
+                isValid = false;
+            }
+
+            // Validate phone
+            const phone = formData.get('phone');
+            if (!validatePhone(phone)) {
+                showError(form.phone, 'Please enter a valid 10-digit phone number');
+                isValid = false;
+            }
+
+            // Validate address
+            const address = formData.get('address');
+            if (address.length < 10) {
+                showError(form.address, 'Please enter a complete address');
+                isValid = false;
+            }
+
+            // Validate age
+            const dob = formData.get('dob');
+            if (!validateAge(dob)) {
+                showError(form.dob, 'You must be at least 18 years old to register');
+                isValid = false;
+            }
+
+            // Validate password
+            const password = formData.get('password');
+            const confirmPassword = formData.get('confirmPassword');
+            
+            if (!validatePassword(password)) {
+                showError(form.password, 'Password must be at least 8 characters long and contain both letters and numbers');
+                isValid = false;
+            }
+
+            if (password !== confirmPassword) {
+                showError(form.confirmPassword, 'Passwords do not match');
+                isValid = false;
+            }
+
+            if (!isValid) return false;
+
+            const customerData = {
+                id: 'CUST' + Date.now(),
+                name: formData.get('name'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                address: formData.get('address'),
+                dob: formData.get('dob'),
+                password: formData.get('password'), // In real application, this should be hashed
+                status: 'active',
+                createdAt: new Date().toISOString()
+            };
+
+            try {
+                // Try to register with the server first
+                try {
+                    const response = await fetch('http://localhost:5000/api/customers', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(customerData)
+                    });
+
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                        throw new Error(data.error || 'Registration failed');
+                    }
+
+                    // Server registration successful
+                    window.location.href = 'customer-login.html?registered=true';
+                    return false;
+                } catch (serverError) {
+                    // If server is not available, fall back to localStorage
+                    console.log('Server not available, using localStorage fallback');
+                    
+                    // Check if email already exists in localStorage
+                    const customers = JSON.parse(localStorage.getItem('customers') || '[]');
+                    if (customers.some(c => c.email === customerData.email)) {
+                        throw new Error('Email already registered');
+                    }
+
+                    // Store in localStorage
+                    customers.push(customerData);
+                    localStorage.setItem('customers', JSON.stringify(customers));
+
+                    // Redirect to login page with success message
+                    window.location.href = 'customer-login.html?registered=true';
+                }
+            } catch (error) {
+                const errorDiv = document.getElementById('registerError');
+                errorDiv.classList.remove('d-none');
+                errorDiv.querySelector('span').textContent = error.message;
+            }
+
+            return false;
+        }
+
+        // Initialize date input max value
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const maxDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+            document.getElementById('dob').max = maxDate.toISOString().split('T')[0];
+        });
+    </script>
+</body>
+</html>

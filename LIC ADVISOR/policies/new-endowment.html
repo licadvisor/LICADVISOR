@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Endowment Plan - LIC Traditional Plan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .policy-header {
+            background: linear-gradient(135deg, #43C6AC 0%, #191654 100%);
+            color: white;
+            padding: 3rem 0;
+        }
+        .feature-card {
+            border: none;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            margin-bottom: 1.5rem;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        .feature-icon {
+            font-size: 2rem;
+            color: #43C6AC;
+            margin-bottom: 1rem;
+        }
+        .benefit-list li {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+        .benefit-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+        }
+        .premium-calculator {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 1rem;
+        }
+        .benefits-grid .card {
+            height: 100%;
+            transition: transform 0.3s;
+        }
+        .benefits-grid .card:hover {
+            transform: translateY(-5px);
+        }
+        .plan-highlights {
+            background: linear-gradient(to right, #f8f9fa, #ffffff);
+            padding: 2rem 0;
+            border-radius: 1rem;
+        }
+        .highlight-icon {
+            font-size: 2.5rem;
+            color: #43C6AC;
+            margin-bottom: 1rem;
+        }
+        .comparison-table th {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">LIC Advisor</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Insurance Plans</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#about">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Policy Header -->
+    <header class="policy-header">
+        <div class="container">
+            <h1 class="display-4">New Endowment Plan</h1>
+            <p class="lead">A Participating Traditional Endowment Assurance Plan with Profits</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container my-5">
+        <!-- Policy Overview -->
+        <section class="mb-5">
+            <h2 class="mb-4">Plan Overview</h2>
+            <p class="lead">The New Endowment Plan is a traditional participating endowment plan that offers an excellent combination of protection and savings. It provides financial protection to your family while building a corpus for your future needs.</p>
+            
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-shield-alt feature-icon"></i>
+                            <h5 class="card-title">Life Protection</h5>
+                            <p class="card-text">Financial security for your family</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-piggy-bank feature-icon"></i>
+                            <h5 class="card-title">Savings</h5>
+                            <p class="card-text">Build wealth with guaranteed returns</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-chart-line feature-icon"></i>
+                            <h5 class="card-title">Bonuses</h5>
+                            <p class="card-text">Participate in company's profits</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Plan Highlights -->
+        <section class="plan-highlights mb-5">
+            <div class="container">
+                <h2 class="mb-4">Plan Highlights</h2>
+                <div class="row text-center">
+                    <div class="col-md-3">
+                        <i class="fas fa-calendar-alt highlight-icon"></i>
+                        <h5>Flexible Terms</h5>
+                        <p>Choose policy term from 12 to 35 years</p>
+                    </div>
+                    <div class="col-md-3">
+                        <i class="fas fa-money-bill-wave highlight-icon"></i>
+                        <h5>Multiple Premiums</h5>
+                        <p>Various premium payment modes</p>
+                    </div>
+                    <div class="col-md-3">
+                        <i class="fas fa-hand-holding-usd highlight-icon"></i>
+                        <h5>Loan Facility</h5>
+                        <p>Available after 3 years</p>
+                    </div>
+                    <div class="col-md-3">
+                        <i class="fas fa-percentage highlight-icon"></i>
+                        <h5>Tax Benefits</h5>
+                        <p>Under Section 80C & 10(10D)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefits Grid -->
+        <section class="benefits-grid mb-5">
+            <h2 class="mb-4">Policy Benefits</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-heart text-danger me-2"></i>Death Benefit</h5>
+                            <p>Sum Assured + Vested Bonus + Final Additional Bonus (if any)</p>
+                            <ul>
+                                <li>Minimum Death Benefit: 10 times annual premium</li>
+                                <li>Additional Accidental Death Benefit available</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-gift text-success me-2"></i>Maturity Benefit</h5>
+                            <p>Basic Sum Assured + Vested Simple Reversionary Bonuses + Final Additional Bonus (if any)</p>
+                            <ul>
+                                <li>Guaranteed Maturity Sum Assured</li>
+                                <li>Participation in profits through bonuses</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Premium Payment Options -->
+        <section class="mb-5">
+            <h2 class="mb-4">Premium Payment Options</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Mode</th>
+                            <th>Minimum Premium</th>
+                            <th>Rebate</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Yearly</td>
+                            <td>₹10,000</td>
+                            <td>2% of Tabular Premium</td>
+                        </tr>
+                        <tr>
+                            <td>Half-Yearly</td>
+                            <td>₹5,000</td>
+                            <td>1% of Tabular Premium</td>
+                        </tr>
+                        <tr>
+                            <td>Quarterly</td>
+                            <td>₹2,500</td>
+                            <td>Nil</td>
+                        </tr>
+                        <tr>
+                            <td>Monthly (NACH)</td>
+                            <td>₹1,000</td>
+                            <td>Nil</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Eligibility -->
+        <section class="mb-5">
+            <h2 class="mb-4">Eligibility Criteria</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>Minimum Entry Age</th>
+                            <td>8 years</td>
+                        </tr>
+                        <tr>
+                            <th>Maximum Entry Age</th>
+                            <td>55 years</td>
+                        </tr>
+                        <tr>
+                            <th>Maximum Maturity Age</th>
+                            <td>75 years</td>
+                        </tr>
+                        <tr>
+                            <th>Policy Term</th>
+                            <td>12 to 35 years</td>
+                        </tr>
+                        <tr>
+                            <th>Minimum Sum Assured</th>
+                            <td>₹1 Lakh</td>
+                        </tr>
+                        <tr>
+                            <th>Maximum Sum Assured</th>
+                            <td>No Limit (Subject to Underwriting)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Premium Calculator -->
+        <section class="premium-calculator mb-5">
+            <h2 class="mb-4">Calculate Premium</h2>
+            <form id="premiumCalcForm" class="needs-validation" novalidate>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="age" class="form-label">Age</label>
+                        <input type="number" class="form-control" id="age" required min="8" max="55">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="gender" class="form-label">Gender</label>
+                        <select class="form-select" id="gender" required>
+                            <option value="">Choose...</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="sumAssured" class="form-label">Sum Assured (₹)</label>
+                        <input type="number" class="form-control" id="sumAssured" required min="100000">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="term" class="form-label">Policy Term</label>
+                        <select class="form-select" id="term" required>
+                            <option value="">Choose...</option>
+                            <option value="12">12 years</option>
+                            <option value="15">15 years</option>
+                            <option value="20">20 years</option>
+                            <option value="25">25 years</option>
+                            <option value="30">30 years</option>
+                            <option value="35">35 years</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="mode" class="form-label">Premium Mode</label>
+                        <select class="form-select" id="mode" required>
+                            <option value="">Choose...</option>
+                            <option value="yearly">Yearly</option>
+                            <option value="half-yearly">Half-Yearly</option>
+                            <option value="quarterly">Quarterly</option>
+                            <option value="monthly">Monthly</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary" type="submit">Calculate Premium</button>
+                    </div>
+                </div>
+            </form>
+            <div id="premiumResult" class="mt-4" style="display: none;">
+                <div class="alert alert-info">
+                    <h5 class="alert-heading">Estimated Premium Amount</h5>
+                    <p class="mb-0">Base Premium: <span id="basePremium">₹0</span></p>
+                    <p class="mb-0">Modal Premium: <span id="modalPremium">₹0</span></p>
+                    <p class="mb-0">Estimated Maturity Value*: <span id="maturityValue">₹0</span></p>
+                    <small class="text-muted">* Assuming 8% bonus rate. Actual bonus may vary based on company's performance.</small>
+                </div>
+            </div>
+        </section>
+
+        <!-- Additional Features -->
+        <section class="mb-5">
+            <h2 class="mb-4">Additional Features</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-plus-circle text-primary me-2"></i>Optional Riders</h5>
+                            <ul>
+                                <li>Accidental Death Benefit</li>
+                                <li>Premium Waiver Benefit</li>
+                                <li>Critical Illness Rider</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-hand-holding-usd text-success me-2"></i>Loan Facility</h5>
+                            <ul>
+                                <li>Available after 3 years</li>
+                                <li>Up to 90% of Surrender Value</li>
+                                <li>Competitive Interest Rates</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-shield-alt text-warning me-2"></i>Grace Period</h5>
+                            <ul>
+                                <li>30 days for yearly mode</li>
+                                <li>15 days for monthly mode</li>
+                                <li>Policy remains in force</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Contact Us</h5>
+                    <p>For more information about New Endowment Plan or any other policies</p>
+                    <p><i class="fas fa-phone"></i> Call us: 1800-XXX-XXXX</p>
+                    <p><i class="fas fa-envelope"></i> Email: support@licadvisor.com</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>Important Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light">Policy Brochure</a></li>
+                        <li><a href="#" class="text-light">Terms & Conditions</a></li>
+                        <li><a href="#" class="text-light">Claim Process</a></li>
+                        <li><a href="#" class="text-light">FAQs</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p class="mb-0">© 2025 LIC Advisor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Premium calculator logic
+        document.getElementById('premiumCalcForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const age = parseInt(document.getElementById('age').value);
+            const gender = document.getElementById('gender').value;
+            const sumAssured = parseInt(document.getElementById('sumAssured').value);
+            const term = parseInt(document.getElementById('term').value);
+            const mode = document.getElementById('mode').value;
+            
+            // Basic premium calculation
+            let basePremium = (sumAssured * 0.05) * (age / 30) * (term / 20);
+            
+            // Mode factors
+            const modeFactors = {
+                'yearly': 1,
+                'half-yearly': 0.51,
+                'quarterly': 0.26,
+                'monthly': 0.087
+            };
+            
+            // Calculate modal premium
+            let modalPremium = basePremium * modeFactors[mode];
+            
+            // Gender discount
+            if (gender === 'female') {
+                basePremium *= 0.95;
+                modalPremium *= 0.95;
+            }
+            
+            // Estimate maturity value (assuming 8% bonus rate)
+            const estimatedBonus = sumAssured * 0.08 * term;
+            const maturityValue = sumAssured + estimatedBonus;
+            
+            document.getElementById('basePremium').textContent = '₹' + Math.round(basePremium).toLocaleString('en-IN');
+            document.getElementById('modalPremium').textContent = '₹' + Math.round(modalPremium).toLocaleString('en-IN');
+            document.getElementById('maturityValue').textContent = '₹' + Math.round(maturityValue).toLocaleString('en-IN');
+            document.getElementById('premiumResult').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
